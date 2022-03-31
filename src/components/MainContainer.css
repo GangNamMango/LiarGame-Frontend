@@ -94,6 +94,9 @@
 .img_ul li:hover{
     border: 4px solid #54B5C2;
 }
+.img_ul li.checked{
+    border: 4px solid #54B5C2;
+}
 
 .Wrap .Container .Cha_select .img_select ul li input{
     width: 100%;

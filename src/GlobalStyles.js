@@ -29,6 +29,9 @@ img, a, fieldset { border: none; }
     font-size: 0; width: 0; height: 0; line-height: 0; text-indent: -9999px; overflow: hidden; visibility: hidden; position: absolute; top: 0; left: 0;
 }
 .box_inner { width: 1050px; margin: 0 auto; }
+.hidden{
+    display: none;
+}
 `;
 
 export default GlobalStyle;
