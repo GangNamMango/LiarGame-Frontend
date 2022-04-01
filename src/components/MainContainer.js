@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
@@ -17,14 +17,14 @@ const Menu = styled.div`
   border-radius: 10px;
 `;
 
-const Character = styled.div`
+const Character = styled.img`
   position: absolute;
   width: 250px;
   height: 250px;
   left: 70px;
   top: 224px;
 
-  background: url(free-icon-scientist-4207345.png);
+  background-size: contain;
   border: 4px solid #54b5c2;
   box-sizing: border-box;
   border-radius: 50px;
@@ -79,6 +79,7 @@ const ButtonGroup = styled.div`
 `;
 
 const MainContainer = () => {
+  const [img, setImg] = useState(4207345);
   return (
     <div>
       <Menu>
@@ -92,7 +93,7 @@ const MainContainer = () => {
           }}
         />
       </Menu>
-      <Character></Character>
+      <Character src={`/img/character-${img}.png`}></Character>
       <Form>
         <NickName />
       </Form>
