@@ -1,8 +1,8 @@
 import "./App.css";
-import MainPage from "./pages/MainPage";
+import WaitingRoomPage from "./pages/WaitingRoomPage";
 
 function App() {
-  return <MainPage />;
+  return <WaitingRoomPage />;
 }
 
 export default App;
