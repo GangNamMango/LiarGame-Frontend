@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { HiArrowNarrowLeft, HiCog } from "react-icons/hi";
 import Button from "./Button";
+import Navigation from "./Navigation";
 import Character from "./Character";
 import CharaterImg from "../data/character";
 
@@ -16,36 +16,15 @@ const Wrap = styled.div`
 
 const Header = styled.div`
   position: relative;
-  height: 230px;
-`;
-const Nav = styled.div`
-  position: relative;
   height: 100px;
-`;
-
-const Menu = styled.div`
-  width: 50px;
-  height: 50px;
-  margin-top: 40px;
-
-  background: #201651;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-
-  .icon {
-    color: #54b5c2;
-    width: 3em;
-    height: 3em;
-  }
 `;
 
 const RoomInfo = styled.div`
   display: flex;
 
   position: relative;
-  height: 100px;
+  width: 100vh;
+  height: 150px;
 
   font-family: "Roboto";
   font-style: normal;
@@ -63,7 +42,7 @@ const Content = styled.div`
   justify-content: space-around;
   align-content: space-around 
   position: relative;
-  height: 450px;
+  height: 550px;
   overflow: auto;
 `;
 
@@ -78,22 +57,15 @@ const WaitingRoomContainer = ({ number }) => {
   return (
     <Wrap>
       <Header>
-        <Nav>
-          <Menu style={{ float: "left" }}>
-            <HiArrowNarrowLeft className="icon" />
-          </Menu>
-          <Menu style={{ float: "right" }}>
-            <HiCog className="icon" />
-          </Menu>
-        </Nav>
+        <Navigation />
+      </Header>
+      <Content>
         <RoomInfo>
           <span style={{ margin: "0 5%" }}>방 코드</span>
           <span style={{ fontWeight: "500", fontSize: "50px", margin: "0 5%" }}>
-            number
+            0000
           </span>
         </RoomInfo>
-      </Header>
-      <Content>
         {CharaterImg.map((img) => (
           <Character
             key={img.id}
