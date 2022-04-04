@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Navigation from "./Navigation";
+import Setting from "./Setting";
 import Character from "./Character";
 import CharaterImg from "../data/character";
+import { PopUpStateContext } from "../Context";
 
 const Wrap = styled.div`
   position: relative;
@@ -54,27 +56,39 @@ const Footer = styled.div`
   align-items: center;
 `;
 const WaitingRoomContainer = ({ number }) => {
+  var PopUp = useContext(PopUpStateContext);
+
   return (
     <Wrap>
       <Header>
         <Navigation />
       </Header>
       <Content>
-        <RoomInfo>
-          <span style={{ margin: "0 5%" }}>방 코드</span>
-          <span style={{ fontWeight: "500", fontSize: "50px", margin: "0 5%" }}>
-            0000
-          </span>
-        </RoomInfo>
-        {CharaterImg.map((img) => (
-          <Character
-            key={img.id}
-            src={img.image}
-            width="150px"
-            height="150px"
-            nickName={img.nickName}
-          />
-        ))}
+        {PopUp ? (
+          <>
+            <Setting></Setting>
+          </>
+        ) : (
+          <>
+            <RoomInfo>
+              <span style={{ margin: "0 5%" }}>방 코드</span>
+              <span
+                style={{ fontWeight: "500", fontSize: "50px", margin: "0 5%" }}
+              >
+                0000
+              </span>
+            </RoomInfo>
+            {CharaterImg.map((img) => (
+              <Character
+                key={img.id}
+                src={img.image}
+                width="150px"
+                height="150px"
+                nickName={img.nickName}
+              />
+            ))}
+          </>
+        )}
       </Content>
       <Footer>
         <Button value="게임 시작"></Button>
