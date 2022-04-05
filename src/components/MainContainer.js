@@ -3,6 +3,15 @@ import styled from "styled-components";
 import Button from "./Button";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 
+const Main = styled.div`
+  position: relative;
+  width: 100vh;
+  max-width: 390px;
+  height: 100%;
+  background: #0f0c13;
+  padding: 0 10%;
+`;
+
 const Menu = styled.div`
   position: absolute;
   width: 50px;
@@ -81,7 +90,7 @@ const ButtonGroup = styled.div`
 const MainContainer = () => {
   const [img, setImg] = useState(4207345);
   return (
-    <div>
+    <Main>
       <Menu>
         <HiOutlineMenuAlt1
           style={{
@@ -101,7 +110,7 @@ const MainContainer = () => {
         <Button value="방 만들기"></Button>
         <Button value="참여하기"></Button>
       </ButtonGroup>
-    </div>
+    </Main>
   );
 };
 
