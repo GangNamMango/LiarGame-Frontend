@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Navigation from "./Navigation";
 import Setting from "./Setting";
 import Character from "./Character";
 import CharaterImg from "../data/character";
-import { PopUpStateContext } from "../Context";
 
 const Wrap = styled.div`
   position: relative;
@@ -58,11 +57,15 @@ const Footer = styled.div`
 `;
 
 const WaitingRoomContainer = () => {
-  var PopUp = useContext(PopUpStateContext);
+  var [PopUp, setPopUp] = useState(false);
+
+  function OnclickPopUp() {
+    setPopUp(!PopUp);
+  }
 
   return (
     <Wrap>
-      <Navigation />
+      <Navigation PopUp={PopUp} OnclickPopUp={OnclickPopUp} />
 
       {PopUp ? (
         <Setting></Setting>

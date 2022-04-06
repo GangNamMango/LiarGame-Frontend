@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { HiArrowNarrowLeft, HiCog } from "react-icons/hi";
-import { PopUpStateContext, PopUPDispatchContext } from "../Context";
 
 const Nav = styled.div`
   height: 100px;
@@ -23,13 +22,9 @@ const Menu = styled.div`
   }
 `;
 
-const Navigation = () => {
-  var PopUp = useContext(PopUpStateContext);
-  const dispatch = useContext(PopUPDispatchContext);
+const Navigation = ({ PopUp, OnclickPopUp }) => {
   const onToggle = () => {
-    dispatch({
-      type: "PopUp",
-    });
+    OnclickPopUp();
   };
   return (
     <Nav>
