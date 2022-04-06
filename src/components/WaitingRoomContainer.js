@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Navigation from "./Navigation";
@@ -11,41 +11,42 @@ const Wrap = styled.div`
   position: relative;
   width: 100vh;
   max-width: 390px;
-  height: 100vh;
+  height: 100%;
   background: #0f0c13;
-  padding: 0 5%;
-`;
-
-const Header = styled.div`
-  position: relative;
-  height: 100px;
+  margin: 0 auto;
 `;
 
 const RoomInfo = styled.div`
   display: flex;
+  height: 100px;
+  text-align: center;
 
-  position: relative;
-  width: 100vh;
-  height: 150px;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 26px;
-  line-height: 30px;
-  justify-content: center;
-  align-items: center;
-  color: #54b5c2;
+  .text,
+  .number {
+    margin: auto;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 30px;
+    color: #54b5c2;
+  }
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-content: space-around 
-  position: relative;
+  width: 100%;
   height: 550px;
-  overflow: auto;
+  display: flex;
+  padding: 0 5%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  position: relative;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Footer = styled.div`
@@ -55,43 +56,38 @@ const Footer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const WaitingRoomContainer = ({ number }) => {
+
+const WaitingRoomContainer = () => {
   var PopUp = useContext(PopUpStateContext);
 
   return (
     <Wrap>
-      <Header>
-        <Navigation />
-      </Header>
-      <Content>
-        {PopUp ? (
-          <>
-            <Setting></Setting>
-          </>
-        ) : (
-          <>
-            <RoomInfo>
-              <span style={{ margin: "0 5%" }}>방 코드</span>
-              <span
-                style={{ fontWeight: "500", fontSize: "50px", margin: "0 5%" }}
-              >
-                0000
-              </span>
-            </RoomInfo>
+      <Navigation />
+
+      {PopUp ? (
+        <Setting></Setting>
+      ) : (
+        <>
+          <RoomInfo>
+            <span className="text">방 코드</span>
+            <span className="number">0000</span>
+          </RoomInfo>
+          <Content>
             {CharaterImg.map((img) => (
               <Character
                 key={img.id}
                 src={img.image}
-                width="150px"
-                height="150px"
+                width="100px"
+                height="100px"
                 nickName={img.nickName}
               />
             ))}
-          </>
-        )}
-      </Content>
+          </Content>
+        </>
+      )}
+
       <Footer>
-        <Button value="게임 시작"></Button>
+        {PopUp ? <Button value="확인" /> : <Button value="게임 시작" />}
       </Footer>
     </Wrap>
   );
