@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
-import Button from "./Button";
 
 const SettingBox = styled.div`
   position: relative;

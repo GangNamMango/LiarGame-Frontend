@@ -10,14 +10,15 @@ const Wrap = styled.div`
   position: relative;
   width: 100vh;
   max-width: 390px;
-  height: 100%;
+  height: 100vh;
   background: #0f0c13;
   margin: 0 auto;
 `;
 
 const RoomInfo = styled.div`
   display: flex;
-  height: 100px;
+  height: 5%;
+  margin-bottom: 5%;
   text-align: center;
 
   .text,
@@ -32,7 +33,7 @@ const RoomInfo = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  height: 550px;
+  height: 350px;
   display: flex;
   padding: 0 5%;
   margin: 0 auto;
@@ -49,7 +50,9 @@ const Content = styled.div`
 `;
 
 const Footer = styled.div`
-  position: relative;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   height: 150px;
   display: flex;
   justify-content: center;
