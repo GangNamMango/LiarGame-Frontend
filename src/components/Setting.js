@@ -3,13 +3,12 @@ import styled from "styled-components";
 import Dropdown from "./Dropdown";
 
 const SettingBox = styled.div`
-  position: relative;
+  height: 390px;
+
   display: flex;
   flex-direction: column;
   width: 85%;
-  height: 650px;
   margin: 0 auto;
-  padding: 5%;
   background: #0f0c13;
   border: 15px solid #201651;
   border-radius: 20px;
@@ -18,13 +17,13 @@ const SettingBox = styled.div`
 
 const TextBox = styled.p`
   position: absolute;
-  top: -10px;
+  top: 110px;
   width: 195px;
-  height: 50px;
+  height: 40px;
   margin: 0 auto;
   background: #201651;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
+
+  border-radius: 10px;
 
   font-size: 25px;
   font-weight: lighter;
@@ -35,10 +34,10 @@ const TextBox = styled.p`
 `;
 
 const Box = styled.div`
-  margin-top: 40%;
+  margin-top: 10%;
   padding: 5% 0;
   & + & {
-    margin-top: 60%;
+    margin-top: 30%;
   }
 `;
 
@@ -51,20 +50,18 @@ const Title = styled.div`
 
 const Setting = () => {
   return (
-    <div>
-      <SettingBox>
-        <TextBox>설정</TextBox>
-        <Box>
-          <Title>주제</Title>
-          <Dropdown title="주제" />
-        </Box>
+    <SettingBox>
+      <TextBox>설정</TextBox>
+      <Box>
+        <Title>주제</Title>
+        <Dropdown title="주제" />
+      </Box>
 
-        <Box>
-          <Title>시간</Title>
-          <Dropdown title="시간" />
-        </Box>
-      </SettingBox>
-    </div>
+      <Box>
+        <Title>시간</Title>
+        <Dropdown title="시간" />
+      </Box>
+    </SettingBox>
   );
 };
 

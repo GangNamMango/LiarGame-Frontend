@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 const DropdownContainer = styled.div`
   background: rgba(39, 18, 143, 0.39);
-  width: 80%;
+  width: 65%;
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -15,7 +15,7 @@ const DropdownContainer = styled.div`
   &:hover {
     cursor: pointer;
   }
-  margin-top: 15%;
+  margin-top: 10%;
 `;
 
 const DropdownBody = styled.div`
@@ -29,6 +29,7 @@ const DropdownBody = styled.div`
 
 const DropdownMenu = styled.ul`
   position: absolute;
+
   width: 100%;
   display: ${(props) => (props.isActive ? `block` : `none`)};
   height: 100px;
@@ -38,6 +39,7 @@ const DropdownMenu = styled.ul`
 
 const DropdownItemContainer = styled.li`
   color: white;
+  background: #0f0c13;
   padding: 9px 14px;
 `;
 

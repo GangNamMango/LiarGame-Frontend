@@ -17,8 +17,8 @@ const Wrap = styled.div`
 
 const RoomInfo = styled.div`
   display: flex;
-  height: 5%;
-  margin-bottom: 5%;
+  height: 30px;
+  margin-bottom: 10px;
   text-align: center;
 
   .text,
@@ -40,7 +40,6 @@ const Content = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
 
-  position: relative;
   overflow-y: scroll;
 
   -ms-overflow-style: none;
