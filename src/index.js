@@ -11,22 +11,27 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { Router } from "react-router-dom";
 import rootReducer from "./useRedux/rootReducer";
 import { createBrowserHistory } from "history";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 const customHistory = createBrowserHistory();
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(
+      ReduxThunk.withExtraArgument({ history: customHistory }),
+      logger
+    )
+  )
+);
+const persistor = persistStore(store);
 ReactDOM.render(
   <React.StrictMode>
     <Router history={customHistory}>
-      <Provider
-        store={createStore(
-          rootReducer,
-          composeWithDevTools(
-            applyMiddleware(
-              ReduxThunk.withExtraArgument({ history: customHistory }, logger)
-            )
-          )
-        )}
-      >
-        <App />
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
       </Provider>
     </Router>
   </React.StrictMode>,
