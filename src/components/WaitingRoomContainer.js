@@ -5,6 +5,8 @@ import Navigation from "./Navigation";
 import Setting from "./Setting";
 import Character from "./Character";
 import CharaterImg from "../data/character";
+import { useSelector, useDispatch } from "react-redux";
+import { popup } from "../modules/popup";
 
 const Wrap = styled.div`
   position: relative;
@@ -59,11 +61,19 @@ const Footer = styled.div`
 `;
 
 const WaitingRoomContainer = () => {
-  var [PopUp, setPopUp] = useState(false);
+  const { PopUp } = useSelector((state) => ({
+    PopUp: state.popup.PopUp,
+  })); //초기값 false;
 
-  function OnclickPopUp() {
-    setPopUp(!PopUp);
-  }
+  const { Rooms } = useSelector((state) => ({
+    Rooms: state.post.Rooms,
+  }));
+
+  const dispatch = useDispatch();
+
+  const OnclickPopUp = () => {
+    dispatch(popup());
+  };
 
   return (
     <Wrap>
@@ -75,18 +85,28 @@ const WaitingRoomContainer = () => {
         <>
           <RoomInfo>
             <span className="text">방 코드</span>
-            <span className="number">0000</span>
+            <span className="number">
+              {Rooms.isLoading || Rooms.error ? (
+                <></>
+              ) : (
+                Rooms.data.gameRoom.roomId
+              )}
+            </span>
           </RoomInfo>
           <Content>
-            {CharaterImg.map((img) => (
-              <Character
-                key={img.id}
-                src={img.image}
-                width="100px"
-                height="100px"
-                nickName={img.nickName}
-              />
-            ))}
+            {Rooms.isLoading || Rooms.error ? (
+              <></>
+            ) : (
+              Rooms.data.gameRoom.users.map((user, i) => (
+                <Character
+                  key={i}
+                  src={"/img/character-" + user.character + ".png"}
+                  width="100px"
+                  height="100px"
+                  nickName={user.nickname}
+                />
+              ))
+            )}
           </Content>
         </>
       )}

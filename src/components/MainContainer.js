@@ -2,35 +2,39 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./MainContainer.css";
 import CharaterImg from "../data/character";
-import styled from "styled-components";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { postMakeRoom, postEnterRoom } from "../modules/post";
 
 const MainContainer = () => {
   const [nickName, setNickName] = useState("");
   const [open, setOpen] = useState(false);
   const [Join, setJoin] = useState(false);
   const [getImg, setGetImg] = useState(4207576);
+  const [roomId, setRoomId] = useState("");
+
+  const dispatch = useDispatch();
 
   const changeImg = (i) => {
     setGetImg(i);
   };
 
-  const axiosRoom = async () => {
-    try {
-      const API_DOMAIN = "http://3.35.178.104";
-      const response = await axios.post(`${API_DOMAIN}/game/room`, {
-        nickname: nickName,
-        character: getImg,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const onChange = (e) => {
+  const onChangeNickName = (e) => {
     setNickName(e.target.value);
   };
-  const enterRoom = async () => {
-    await axiosRoom();
+
+  const onChangeRoomId = (e) => {
+    setRoomId(e.target.value);
+  };
+
+  const makeRoom = () => {
+    dispatch(postMakeRoom(nickName, getImg));
+  };
+
+  const enterRoom = () => {
+    console.log("enter");
+    console.log(roomId);
+    dispatch(postEnterRoom(roomId, nickName, getImg));
   };
   return (
     <div className="Wrap">
@@ -40,8 +44,21 @@ const MainContainer = () => {
         </div>
         <div className={Join ? "Join" : "hidden"}>
           <h1 className="title Blue">방코드</h1>
-          <input className="code_text" type="text" maxLength={10} />
-          <p className="Blue" open={Join} onClick={() => setJoin(!Join)}>
+          <input
+            className="code_text"
+            type="text"
+            value={roomId}
+            name="roomId"
+            maxLength={10}
+            onChange={onChangeRoomId}
+          />
+          <p
+            className="Blue"
+            open={Join}
+            onClick={() => {
+              enterRoom(), setJoin(!Join);
+            }}
+          >
             입장하기
           </p>
         </div>
@@ -69,17 +86,15 @@ const MainContainer = () => {
             name="nickname"
             maxLength={10}
             value={nickName}
-            onChange={onChange}
+            onChange={onChangeNickName}
           />
         </div>
         <div className="Btn">
           <ul>
             <li>
-              <Link to={"/room"}>
-                <span className="Blue" onClick={enterRoom}>
-                  방만들기
-                </span>
-              </Link>
+              <span className="Blue" onClick={makeRoom}>
+                방만들기
+              </span>
             </li>
             <li open={Join} onClick={() => setJoin(!Join)}>
               참여하기
