@@ -1,5 +1,5 @@
 import * as postAPI from "../api/post"; // api/posts 안의 함수 모두 불러오기
-import { useHistory } from "react-router-dom";
+import { stompConnect } from "./stomp";
 /* 액션 타입 */
 
 const POST_MAKE_ROOM = "POST_MAKE_ROOM"; // 요청 시작
@@ -17,6 +17,7 @@ export const postMakeRoom =
     try {
       const room = await postAPI.postMakeRoom(nickName, getImg); // API 호출
       history.push(`/room?roomId=${room.data.data.gameRoom.roomId}`);
+      stompConnect();
       dispatch({ type: POST_MAKE_ROOM_SUCCESS, room: room.data.data }); // 성공
     } catch (e) {
       dispatch({ type: POST_MAKE_ROOM_ERROR, error: e }); // 실패
@@ -29,13 +30,14 @@ export const postEnterRoom =
     dispatch({ type: POST_ENTER_ROOM }); // 요청이 시작됨
     try {
       const room = await postAPI.postEnterRoom(roomId, nickName, getImg); // API 호출
-      console.log(room);
       history.push(`/room?roomId=${roomId}`);
       dispatch({ type: POST_ENTER_ROOM_SUCCESS, room: room.data.data }); // 성공
     } catch (e) {
       dispatch({ type: POST_ENTER_ROOM_ERROR, error: e }); // 실패
+      alert(e);
     }
   };
+
 const initialState = {
   Rooms: {
     isLoading: null,
