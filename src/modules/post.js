@@ -16,8 +16,9 @@ export const postMakeRoom =
     dispatch({ type: POST_MAKE_ROOM }); // 요청이 시작됨
     try {
       const room = await postAPI.postMakeRoom(nickName, getImg); // API 호출
-      history.push(`/room?roomId=${room.data.data.gameRoom.roomId}`);
-      stompConnect();
+      const info = room.data.data;
+      history.push(`/room?roomId=${info.gameRoom.roomId}`);
+      stompConnect(info);
       dispatch({ type: POST_MAKE_ROOM_SUCCESS, room: room.data.data }); // 성공
     } catch (e) {
       dispatch({ type: POST_MAKE_ROOM_ERROR, error: e }); // 실패
@@ -30,7 +31,9 @@ export const postEnterRoom =
     dispatch({ type: POST_ENTER_ROOM }); // 요청이 시작됨
     try {
       const room = await postAPI.postEnterRoom(roomId, nickName, getImg); // API 호출
+      const info = room.data.data;
       history.push(`/room?roomId=${roomId}`);
+      stompConnect(info);
       dispatch({ type: POST_ENTER_ROOM_SUCCESS, room: room.data.data }); // 성공
     } catch (e) {
       dispatch({ type: POST_ENTER_ROOM_ERROR, error: e }); // 실패
