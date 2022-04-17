@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import SockJs from "sockjs-client";
+import StompJs from "stompjs";
 import styled from "styled-components";
 import Button from "./Button";
 import Navigation from "./Navigation";
@@ -7,6 +9,7 @@ import Character from "./Character";
 import CharaterImg from "../data/character";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
+import { settingRoom } from "../modules/room";
 
 const Wrap = styled.div`
   position: relative;
@@ -61,26 +64,134 @@ const Footer = styled.div`
 `;
 
 const WaitingRoomContainer = () => {
+  const [topic, setTopic] = useState("");
+  const [timeLimit, setTimeLimit] = useState();
+  //socket 연결
+  const sock = new SockJs("http://3.35.178.104/socket");
+
+  //stomp 연결
+  const stomp = StompJs.over(sock);
+
   const { PopUp } = useSelector((state) => ({
     PopUp: state.popup.PopUp,
   })); //초기값 false;
 
   const { Rooms } = useSelector((state) => ({
-    Rooms: state.post.Rooms,
+    Rooms: state.room,
   }));
 
+  console.log(Rooms);
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    stompConnect();
+  }, []);
+  React.useEffect(() => {
+    console.log(topic);
+  }, [topic]);
+  function stompConnect() {
+    stomp.connect({}, () => {
+      //유저 개인에게 보내는 응답
+      stomp.subscribe(`/sub/game/error/${Rooms.data.userId}`, (body) => {
+        console.log(JSON.parse(body.body));
+
+        //이후 처리
+      });
+
+      //유저가 대기실에 들어왔을 때 이벤트
+      stomp.subscribe(
+        `/sub/game/enter/${Rooms.data.gameRoom.roomId}`,
+        (body) => {
+          console.log(JSON.parse(body.body));
+
+          //이후 처리
+        }
+      );
+
+      //유저가 대기실에서 나갔을 때 이벤트
+      stomp.subscribe(
+        `/sub/game/leave/${Rooms.data.gameRoom.roomId}`,
+        (body) => {
+          console.log(JSON.parse(body.body));
+
+          //이후 처리
+        }
+      );
+
+      //게임 설정이 변경되었을 때 이벤트
+      stomp.subscribe(
+        `/sub/game/setting/${Rooms.data.gameRoom.roomId}`,
+        (body) => {
+          console.log(JSON.parse(body.body));
+
+          //이후 처리
+        }
+      );
+
+      //대기실 유저 중 프로필 변경이 발생했을 때 이벤트
+      stomp.subscribe(
+        `/sub/game/profile/${Rooms.data.gameRoom.roomId}`,
+        (body) => {
+          console.log(JSON.parse(body.body));
+
+          //이후 처리
+        }
+      );
+    });
+  }
+
+  function sendLeave() {
+    stomp.send(
+      `/pub/game/leave`,
+      {},
+      JSON.stringify({
+        roomId: Rooms.data.gameRoom.roomId,
+        userId: Rooms.data.userId,
+      })
+    );
+  }
+
+  function sendSetting() {
+    stomp.send(
+      "/pub/game/setting",
+      {},
+      JSON.stringify({
+        roomId: "3br4s",
+        userId: "90506b0b-d209-453c-b64d-7df0d7884e59",
+        setting: {
+          timeLimit: 30,
+          capacity: 10,
+          topic: "random",
+        },
+      })
+    );
+  }
+
+  function disconnect() {
+    stomp.disconnect(() => {
+      console.log("socket연결 해제");
+    });
+  }
 
   const OnclickPopUp = () => {
     dispatch(popup());
   };
 
+  const OnClickSetting = () => {
+    sendSetting();
+    dispatch(settingRoom(topic, timeLimit));
+    OnclickPopUp();
+  };
   return (
     <Wrap>
-      <Navigation PopUp={PopUp} OnclickPopUp={OnclickPopUp} />
+      <Navigation
+        PopUp={PopUp}
+        OnclickPopUp={OnclickPopUp}
+        sendLeave={sendLeave}
+      />
 
       {PopUp ? (
-        <Setting></Setting>
+        <Setting setTopic={setTopic} setTimeLimit={setTimeLimit}></Setting>
       ) : (
         <>
           <RoomInfo>
@@ -112,7 +223,11 @@ const WaitingRoomContainer = () => {
       )}
 
       <Footer>
-        {PopUp ? <Button value="확인" /> : <Button value="게임 시작" />}
+        {PopUp ? (
+          <Button value="확인" OnClickSetting={OnClickSetting} />
+        ) : (
+          <Button value="게임 시작" />
+        )}
       </Footer>
     </Wrap>
   );

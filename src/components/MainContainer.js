@@ -4,7 +4,7 @@ import "./MainContainer.css";
 import CharaterImg from "../data/character";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { postMakeRoom, postEnterRoom } from "../modules/post";
+import { postMakeRoom, postEnterRoom } from "../modules/room";
 
 const MainContainer = () => {
   const [nickName, setNickName] = useState("");

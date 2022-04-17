@@ -29,14 +29,14 @@ const Menu = styled.div`
   }
 `;
 
-const Navigation = ({ PopUp, OnclickPopUp }) => {
+const Navigation = ({ PopUp, OnclickPopUp, sendLeave }) => {
   const onToggle = () => {
     OnclickPopUp();
   };
   return (
     <Nav>
       <Link to={"/"}>
-        <Menu className={PopUp ? "hidden" : ""}>
+        <Menu className={PopUp ? "hidden" : ""} onClick={sendLeave}>
           <HiArrowNarrowLeft className="icon" />
         </Menu>
       </Link>

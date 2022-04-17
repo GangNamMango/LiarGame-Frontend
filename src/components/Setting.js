@@ -47,19 +47,20 @@ const Title = styled.div`
   text-align: center;
   color: #54b5c2;
 `;
-
-const Setting = () => {
+const topics = ["나라", "과일", "가전제품", "옷"];
+const timeLimits = [10, 20, 30];
+const Setting = ({ setTopic, setTimeLimit }) => {
   return (
     <SettingBox>
       <TextBox>설정</TextBox>
       <Box>
         <Title>주제</Title>
-        <Dropdown title="주제" />
+        <Dropdown title="topic" data={topics} setState={setTopic} />
       </Box>
 
       <Box>
         <Title>시간</Title>
-        <Dropdown title="시간" />
+        <Dropdown title="timeLimit" data={timeLimits} setState={setTimeLimit} />
       </Box>
     </SettingBox>
   );

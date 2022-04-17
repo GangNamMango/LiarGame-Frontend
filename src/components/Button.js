@@ -21,8 +21,12 @@ const Btn = styled.button`
     margin-top: 2rem;
   }
 `;
-const Button = ({ value }) => {
-  return <Btn>{value}</Btn>;
+
+const Button = ({ value, OnClickSetting }) => {
+  function click(e) {
+    OnClickSetting();
+  }
+  return <Btn onClick={click}>{value}</Btn>;
 };
 
 export default Button;
