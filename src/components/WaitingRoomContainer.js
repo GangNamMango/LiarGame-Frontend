@@ -9,7 +9,7 @@ import Character from "./Character";
 import CharaterImg from "../data/character";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
-import { settingRoom } from "../modules/room";
+import { updateUsers, settingRoom } from "../modules/room";
 
 const Wrap = styled.div`
   position: relative;
@@ -80,20 +80,18 @@ const WaitingRoomContainer = () => {
     Rooms: state.room,
   }));
 
-  console.log(Rooms);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     stompConnect();
   }, []);
-  React.useEffect(() => {
-    console.log(topic);
-  }, [topic]);
+
   function stompConnect() {
     stomp.connect({}, () => {
       //유저 개인에게 보내는 응답
       stomp.subscribe(`/sub/game/error/${Rooms.data.userId}`, (body) => {
-        console.log(JSON.parse(body.body));
+        let data = JSON.parse(body.body);
+        alert(data.message);
 
         //이후 처리
       });
@@ -102,18 +100,8 @@ const WaitingRoomContainer = () => {
       stomp.subscribe(
         `/sub/game/enter/${Rooms.data.gameRoom.roomId}`,
         (body) => {
-          console.log(JSON.parse(body.body));
-
-          //이후 처리
-        }
-      );
-
-      //유저가 대기실에서 나갔을 때 이벤트
-      stomp.subscribe(
-        `/sub/game/leave/${Rooms.data.gameRoom.roomId}`,
-        (body) => {
-          console.log(JSON.parse(body.body));
-
+          let data = JSON.parse(body.body);
+          dispatch(updateUsers(data.data));
           //이후 처리
         }
       );
@@ -122,9 +110,8 @@ const WaitingRoomContainer = () => {
       stomp.subscribe(
         `/sub/game/setting/${Rooms.data.gameRoom.roomId}`,
         (body) => {
-          console.log(JSON.parse(body.body));
-
-          //이후 처리
+          let data = JSON.parse(body.body);
+          dispatch(settingRoom(data.data.topic, data.data.timeLimit));
         }
       );
 
@@ -137,6 +124,52 @@ const WaitingRoomContainer = () => {
           //이후 처리
         }
       );
+
+      //유저가 대기실에서 나갔을 때 이벤트
+      stomp.subscribe(
+        `/sub/game/leave/${Rooms.data.gameRoom.roomId}`,
+        (body) => {
+          let data = JSON.parse(body.body);
+          dispatch(updateUsers(data.data));
+
+          //이후 처리
+        }
+      );
+    });
+  }
+
+  function sendSetting() {
+    stomp.send(
+      "/pub/game/setting",
+      {},
+      JSON.stringify({
+        roomId: Rooms.data.gameRoom.roomId,
+        userId: Rooms.data.userId,
+        setting: {
+          timeLimit: timeLimit,
+          capacity: 10,
+          topic: topic,
+        },
+      })
+    );
+  }
+
+  function changeUserProfile() {
+    stomp.send(
+      "/pub/game/profile",
+      {},
+      JSON.stringify({
+        roomId: Rooms.data.gameRoom.roomId,
+        userId: Rooms.data.userId,
+        nickname: "change",
+        character: "changechracter",
+      })
+    );
+  }
+
+  function disconnect() {
+    stomp.disconnect(() => {
+      console.log("socket연결 해제");
     });
   }
 
@@ -149,28 +182,7 @@ const WaitingRoomContainer = () => {
         userId: Rooms.data.userId,
       })
     );
-  }
-
-  function sendSetting() {
-    stomp.send(
-      "/pub/game/setting",
-      {},
-      JSON.stringify({
-        roomId: "3br4s",
-        userId: "90506b0b-d209-453c-b64d-7df0d7884e59",
-        setting: {
-          timeLimit: 30,
-          capacity: 10,
-          topic: "random",
-        },
-      })
-    );
-  }
-
-  function disconnect() {
-    stomp.disconnect(() => {
-      console.log("socket연결 해제");
-    });
+    disconnect();
   }
 
   const OnclickPopUp = () => {
@@ -179,7 +191,6 @@ const WaitingRoomContainer = () => {
 
   const OnClickSetting = () => {
     sendSetting();
-    dispatch(settingRoom(topic, timeLimit));
     OnclickPopUp();
   };
   return (

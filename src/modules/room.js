@@ -5,13 +5,17 @@ const POST_MAKE_ROOM = "POST_MAKE_ROOM"; // 요청 시작
 const POST_MAKE_ROOM_SUCCESS = "POST_MAKE_ROOM_SUCCESS"; // 요청 성공
 const POST_MAKE_ROOM_ERROR = "POST_MAKE_ROOM_ERROR"; // 요청 실패
 
-const POST_ENTER_ROOM = "POST_MAKE_ROOM"; // 요청 시작
-const POST_ENTER_ROOM_SUCCESS = "POST_MAKE_ROOM_SUCCESS"; // 요청 성공
-const POST_ENTER_ROOM_ERROR = "POST_MAKE_ROOM_ERROR"; // 요청 실패
+const POST_ENTER_ROOM = "POST_ENTER_ROOM"; // 요청 시작
+const POST_ENTER_ROOM_SUCCESS = "POST_ENTER_ROOM_SUCCESS"; // 요청 성공
+const POST_ENTER_ROOM_ERROR = "POST_ENTER_ROOM_ERROR"; // 요청 실패
 
 const SETTING_ROOM = "SETTING_ROOM"; // 요청 시작
 const SETTING_ROOM_SUCCESS = "SETTING_ROOM_SUCCESS"; // 요청 성공
 const SETTING_ROOM_ERROR = "SETTING_ROOM_ERROR"; // 요청 실패
+
+const UPDATEUSERS = "UPDATEUSERS"; // 요청 시작
+const UPDATEUSERS_SUCCESS = "UPDATEUSERS_SUCCESS"; // 요청 성공
+const UPDATEUSERS_ERROR = "UPDATEUSERS_ERROR"; // 요청 실패
 
 export const postMakeRoom =
   (nickName, getImg) =>
@@ -19,8 +23,8 @@ export const postMakeRoom =
     dispatch({ type: POST_MAKE_ROOM }); // 요청이 시작됨
     try {
       const room = await postAPI.postMakeRoom(nickName, getImg); // API 호출
-      history.push(`/room?roomId=${room.data.data.gameRoom.roomId}`);
       dispatch({ type: POST_MAKE_ROOM_SUCCESS, room: room.data.data }); // 성공
+      history.push(`/room?roomId=${room.data.data.gameRoom.roomId}`);
     } catch (e) {
       dispatch({ type: POST_MAKE_ROOM_ERROR, error: e }); // 실패
     }
@@ -32,11 +36,11 @@ export const postEnterRoom =
     dispatch({ type: POST_ENTER_ROOM }); // 요청이 시작됨
     try {
       const room = await postAPI.postEnterRoom(roomId, nickName, getImg); // API 호출
-      history.push(`/room?roomId=${roomId}`);
       dispatch({ type: POST_ENTER_ROOM_SUCCESS, room: room.data.data }); // 성공
+      history.push(`/room?roomId=${roomId}`);
     } catch (e) {
       dispatch({ type: POST_ENTER_ROOM_ERROR, error: e }); // 실패
-      alert(e);
+      alert(e.response.data.message);
     }
   };
 
@@ -51,6 +55,20 @@ export const settingRoom =
       }); // 성공
     } catch (e) {
       dispatch({ type: SETTING_ROOM_ERROR, error: e }); // 실패
+    }
+  };
+
+export const updateUsers =
+  (users) =>
+  async (dispatch, getState, { history }) => {
+    dispatch({ type: UPDATEUSERS }); // 요청이 시작됨
+    try {
+      dispatch({
+        type: UPDATEUSERS_SUCCESS,
+        user: users,
+      }); // 성공
+    } catch (e) {
+      dispatch({ type: UPDATEUSERS_ERROR, error: e }); // 실패
     }
   };
 
@@ -82,7 +100,7 @@ export default function room(state = initialState, action) {
       return {
         ...state,
 
-        loading: false,
+        isLoading: false,
         data: null,
         error: action.error,
       };
@@ -107,7 +125,7 @@ export default function room(state = initialState, action) {
       return {
         ...state,
 
-        loading: false,
+        isLoading: false,
         data: null,
         error: action.error,
       };
@@ -117,7 +135,6 @@ export default function room(state = initialState, action) {
         ...state,
 
         isLoading: true,
-
         error: null,
       };
     case SETTING_ROOM_SUCCESS:
@@ -147,6 +164,35 @@ export default function room(state = initialState, action) {
         error: action.error,
       };
 
+    case UPDATEUSERS:
+      return {
+        ...state,
+
+        isLoading: true,
+        error: null,
+      };
+    case UPDATEUSERS_SUCCESS:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: {
+          ...state.data,
+          gameRoom: {
+            ...state.data.gameRoom,
+            users: action.user,
+          },
+        },
+        error: null,
+      };
+    case UPDATEUSERS_ERROR:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+      };
     default:
       return state;
   }
