@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 const DropdownContainer = styled.div`
   background: rgba(39, 18, 143, 0.39);
   width: 65%;
@@ -43,10 +44,16 @@ const DropdownItemContainer = styled.li`
   padding: 9px 14px;
 `;
 
-const initial = ["나라", "과일", "가전제품", "옷"];
-const Dropdown = ({ title }) => {
+const Dropdown = ({ title, data, setState }) => {
   const [isActive, setIsActive] = useState(false);
   const [item, setItem] = useState(null);
+  const { Rooms } = useSelector((state) => ({
+    Rooms: state.room,
+  }));
+  const value =
+    title === "topic"
+      ? Rooms.data.gameRoom.setting.topic
+      : Rooms.data.gameRoom.setting.timeLimit;
 
   const onActiveToggle = useCallback(() => {
     setIsActive((prev) => !prev);
@@ -54,7 +61,7 @@ const Dropdown = ({ title }) => {
 
   const onSelectItem = useCallback((e) => {
     setItem(e.target.innerHTML);
-
+    setState(e.target.innerHTML);
     setIsActive((prev) => !prev);
   }, []);
 
@@ -62,13 +69,13 @@ const Dropdown = ({ title }) => {
     <div>
       <DropdownContainer isActive={isActive}>
         <DropdownBody onClick={onActiveToggle}>
-          {item ? <>{item}</> : <>{title}</>}
+          {item ? <>{item}</> : <>{value}</>}
         </DropdownBody>
 
         <DropdownMenu isActive={isActive}>
-          {initial.map((item, i) => (
+          {data.map((item, i) => (
             <DropdownItemContainer id="item" key={i} onClick={onSelectItem}>
-              {item}{" "}
+              {item}
             </DropdownItemContainer>
           ))}
         </DropdownMenu>
