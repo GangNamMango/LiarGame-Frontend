@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { settingRoom } from "../modules/room";
+import { useSelector } from "react-redux";
 const DropdownContainer = styled.div`
   background: rgba(39, 18, 143, 0.39);
   width: 65%;
@@ -48,6 +47,13 @@ const DropdownItemContainer = styled.li`
 const Dropdown = ({ title, data, setState }) => {
   const [isActive, setIsActive] = useState(false);
   const [item, setItem] = useState(null);
+  const { Rooms } = useSelector((state) => ({
+    Rooms: state.room,
+  }));
+  const value =
+    title === "topic"
+      ? Rooms.data.gameRoom.setting.topic
+      : Rooms.data.gameRoom.setting.timeLimit;
 
   const onActiveToggle = useCallback(() => {
     setIsActive((prev) => !prev);
@@ -63,7 +69,7 @@ const Dropdown = ({ title, data, setState }) => {
     <div>
       <DropdownContainer isActive={isActive}>
         <DropdownBody onClick={onActiveToggle}>
-          {item ? <>{item}</> : <>{title}</>}
+          {item ? <>{item}</> : <>{value}</>}
         </DropdownBody>
 
         <DropdownMenu isActive={isActive}>

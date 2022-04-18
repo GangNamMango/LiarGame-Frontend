@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
+import Topics from "../data/topics";
 
 const SettingBox = styled.div`
   height: 390px;
@@ -47,7 +48,7 @@ const Title = styled.div`
   text-align: center;
   color: #54b5c2;
 `;
-const topics = ["나라", "과일", "가전제품", "옷"];
+const topics = Topics;
 const timeLimits = [10, 20, 30];
 const Setting = ({ setTopic, setTimeLimit }) => {
   return (
