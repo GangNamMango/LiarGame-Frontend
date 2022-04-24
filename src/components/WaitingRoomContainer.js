@@ -92,8 +92,6 @@ const WaitingRoomContainer = () => {
       stomp.subscribe(`/sub/game/error/${Rooms.data.userId}`, (body) => {
         let data = JSON.parse(body.body);
         alert(data.message);
-
-        //이후 처리
       });
 
       //유저가 대기실에 들어왔을 때 이벤트
@@ -102,7 +100,6 @@ const WaitingRoomContainer = () => {
         (body) => {
           let data = JSON.parse(body.body);
           dispatch(updateUsers(data.data));
-          //이후 처리
         }
       );
 
@@ -115,13 +112,11 @@ const WaitingRoomContainer = () => {
         }
       );
 
-      //대기실 유저 중 프로필 변경이 발생했을 때 이벤트
+      //대기실 유저 중 프로필 변경이 발생했을 때 이벤트(추후)
       stomp.subscribe(
         `/sub/game/profile/${Rooms.data.gameRoom.roomId}`,
         (body) => {
           console.log(JSON.parse(body.body));
-
-          //이후 처리
         }
       );
 
@@ -131,8 +126,6 @@ const WaitingRoomContainer = () => {
         (body) => {
           let data = JSON.parse(body.body);
           dispatch(updateUsers(data.data));
-
-          //이후 처리
         }
       );
     });
@@ -155,6 +148,7 @@ const WaitingRoomContainer = () => {
   }
 
   function changeUserProfile() {
+    //(추후)
     stomp.send(
       "/pub/game/profile",
       {},
