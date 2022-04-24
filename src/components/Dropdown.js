@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 const DropdownContainer = styled.div`
@@ -84,4 +84,4 @@ const Dropdown = ({ title, data, setState }) => {
   );
 };
 
-export default Dropdown;
+export default React.memo(Dropdown);
