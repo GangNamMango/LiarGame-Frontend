@@ -4,13 +4,13 @@ import NavContainer from "../components/NavContainer";
 import GlobalStyle from "../GlobalStyles";
 
 const MainPage = () => {
-    return(
-        <>
-            <NavContainer/>
-            <MainContainer/>
-            <GlobalStyle/>
-        </>
-    )
-}
+  return (
+    <>
+      <NavContainer />
+      <MainContainer />
+      <GlobalStyle />
+    </>
+  );
+};
 
 export default MainPage;

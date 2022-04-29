@@ -1,14 +1,15 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import Room from './components/Room';
-import MainPage from './pages/MainPage';
+import "./App.css";
+import React from "react";
+import { Route } from "react-router-dom";
+import MainPages from "./pages/MainPages";
+import WaitingRoomPage from "./pages/WaitingRoomPage";
 
 function App() {
   return (
-      <Routes>
-      <Route path={`${process.env.PUBLIC_URL}/`} element={<MainPage/>}/>
-      <Route path={`${process.env.PUBLIC_URL}/room/:pw`} element={<Room/>}/>
-      </Routes>
+    <div>
+      <Route path="/" component={MainPages} exact={true} />
+      <Route path="/room" component={WaitingRoomPage} />
+    </div>
   );
 }
 
