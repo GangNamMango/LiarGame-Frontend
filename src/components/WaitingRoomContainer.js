@@ -7,6 +7,7 @@ import Navigation from "./Navigation";
 import Setting from "./Setting";
 import Character from "./Character";
 import CharaterImg from "../data/character";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
 import { updateUsers, settingRoom } from "../modules/room";
@@ -235,9 +236,16 @@ const WaitingRoomContainer = () => {
 
       <Footer>
         {PopUp ? (
-          <Button value="확인" OnClickSetting={OnClickSetting} />
+          <Button value="확인" onClick={() => OnClickSetting()} />
         ) : (
-          <Button value="게임 시작" />
+          <Link to={"/loading"}>
+            <Button
+              value="게임 시작"
+              onClick={() => {
+                console.log("start");
+              }}
+            />
+          </Link>
         )}
       </Footer>
     </Wrap>
