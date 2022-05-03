@@ -11,7 +11,6 @@ import { popup } from "../modules/popup";
 import { updateUsers, settingRoom, changeCharacter } from "../modules/room";
 import { characterpop } from "../modules/character";
 import Change from "./ChageCharacter";
-import Button2 from "./Button2";
 import CharaterImg from "../data/character";
 
 const Wrap = styled.div`
@@ -250,9 +249,9 @@ const WaitingRoomContainer = () => {
       )}
       <Footer>
         {PopUp ? (
-          <Button value="확인" OnClickSetting={OnClickSetting} />
+          <Button value="확인" onClick={OnClickSetting} />
         ) : CharacterPop ? (
-          <Button2 value="변경" OnClickChangeProfile={OnClickChangeProfile} />
+          <Button value="변경" onClick={OnClickChangeProfile} />
         ) : (
           <Button value="게임 시작" />
         )}
