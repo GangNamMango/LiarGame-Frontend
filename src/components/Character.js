@@ -17,9 +17,11 @@ const CharacterName = styled.div`
 
 const Character = ({ src, width, height, nickName }) => {
   return (
-    <div style={{ margin: "10px" }}>
-      <CharacterImg src={src} width={width} height={height} />
-      <CharacterName>{nickName}</CharacterName>
+    <div>
+      <div style={{ margin: "10px" }}>
+        <CharacterImg src={src} width={width} height={height} />
+        <CharacterName>{nickName}</CharacterName>
+      </div>
     </div>
   );
 };

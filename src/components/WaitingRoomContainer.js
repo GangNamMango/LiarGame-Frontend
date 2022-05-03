@@ -6,11 +6,13 @@ import Button from "./Button";
 import Navigation from "./Navigation";
 import Setting from "./Setting";
 import Character from "./Character";
-import CharaterImg from "../data/character";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
-import { updateUsers, settingRoom } from "../modules/room";
+import { updateUsers, settingRoom, changeCharacter } from "../modules/room";
+import { characterpop } from "../modules/character";
+import Change from "./ChageCharacter";
+import Button2 from "./Button2";
+import CharaterImg from "../data/character";
 
 const Wrap = styled.div`
   position: relative;
@@ -67,6 +69,8 @@ const Footer = styled.div`
 const WaitingRoomContainer = () => {
   const [topic, setTopic] = useState("");
   const [timeLimit, setTimeLimit] = useState();
+  const [character, setCharacter] = useState();
+
   //socket 연결
   const sock = new SockJs("http://3.35.178.104/socket");
 
@@ -76,6 +80,10 @@ const WaitingRoomContainer = () => {
   const { PopUp } = useSelector((state) => ({
     PopUp: state.popup.PopUp,
   })); //초기값 false;
+
+  const { CharacterPop } = useSelector((state) => ({
+    CharacterPop: state.characterpop.CharacterPop,
+  }));
 
   const { Rooms } = useSelector((state) => ({
     Rooms: state.room,
@@ -113,11 +121,13 @@ const WaitingRoomContainer = () => {
         }
       );
 
-      //대기실 유저 중 프로필 변경이 발생했을 때 이벤트(추후)
+      //대기실 유저 중 프로필 변경이 발생했을 때 이벤트
       stomp.subscribe(
         `/sub/game/profile/${Rooms.data.gameRoom.roomId}`,
         (body) => {
-          console.log(JSON.parse(body.body));
+          let data = JSON.parse(body.body);
+          console.log(data);
+          dispatch(changeCharacter(data.data[0].character));
         }
       );
 
@@ -149,15 +159,13 @@ const WaitingRoomContainer = () => {
   }
 
   function changeUserProfile() {
-    //(추후)
     stomp.send(
       "/pub/game/profile",
       {},
       JSON.stringify({
         roomId: Rooms.data.gameRoom.roomId,
         userId: Rooms.data.userId,
-        nickname: "change",
-        character: "changechracter",
+        character: character,
       })
     );
   }
@@ -184,20 +192,33 @@ const WaitingRoomContainer = () => {
     dispatch(popup());
   };
 
+  const OnclickCharacter = () => {
+    dispatch(characterpop());
+  };
+
   const OnClickSetting = () => {
     sendSetting();
     OnclickPopUp();
   };
+
+  const OnClickChangeProfile = () => {
+    changeUserProfile();
+    OnclickCharacter();
+  };
+
   return (
     <Wrap>
       <Navigation
         PopUp={PopUp}
         OnclickPopUp={OnclickPopUp}
+        OnclickCharacter={OnclickCharacter}
         sendLeave={sendLeave}
       />
 
       {PopUp ? (
         <Setting setTopic={setTopic} setTimeLimit={setTimeLimit}></Setting>
+      ) : CharacterPop ? (
+        <Change setCharacter={setCharacter} />
       ) : (
         <>
           <RoomInfo>
@@ -227,19 +248,13 @@ const WaitingRoomContainer = () => {
           </Content>
         </>
       )}
-
       <Footer>
         {PopUp ? (
-          <Button value="확인" onClick={() => OnClickSetting()} />
+          <Button value="확인" OnClickSetting={OnClickSetting} />
+        ) : CharacterPop ? (
+          <Button2 value="변경" OnClickChangeProfile={OnClickChangeProfile} />
         ) : (
-          <Link to={"/loading"}>
-            <Button
-              value="게임 시작"
-              onClick={() => {
-                console.log("start");
-              }}
-            />
-          </Link>
+          <Button value="게임 시작" />
         )}
       </Footer>
     </Wrap>
