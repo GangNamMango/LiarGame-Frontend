@@ -22,8 +22,11 @@ const Btn = styled.button`
   }
 `;
 
-const Button = ({ value }) => {
-  return <Btn>{value}</Btn>;
+const Button = ({ value, onClick }) => {
+  function click(e) {
+    onClick();
+  }
+  return <Btn onClick={click}>{value}</Btn>;
 };
 
 export default Button;

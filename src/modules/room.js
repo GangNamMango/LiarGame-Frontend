@@ -17,6 +17,10 @@ const UPDATEUSERS = "UPDATEUSERS"; // 요청 시작
 const UPDATEUSERS_SUCCESS = "UPDATEUSERS_SUCCESS"; // 요청 성공
 const UPDATEUSERS_ERROR = "UPDATEUSERS_ERROR"; // 요청 실패
 
+const CHANGEPROFILE = "CHANGEPROFILE";
+const CHANGEPROFILE_SUCCESS = "CHANGEPROFILE_SUCCESS";
+const CHANGEPROFILE_ERROR = "CHANGEPROFILE_ERROR";
+
 export const postMakeRoom =
   (nickName, getImg) =>
   async (dispatch, getState, { history }) => {
@@ -55,6 +59,20 @@ export const settingRoom =
       }); // 성공
     } catch (e) {
       dispatch({ type: SETTING_ROOM_ERROR, error: e }); // 실패
+    }
+  };
+
+export const changeCharacter =
+  (character) =>
+  async (dispatch, getState, { history }) => {
+    dispatch({ type: CHANGEPROFILE }); //요청이 시작됨
+    try {
+      dispatch({
+        type: CHANGEPROFILE_SUCCESS,
+        room: { character: character },
+      }); //성공
+    } catch (e) {
+      dispatch({ type: CHANGEPROFILE_ERROR, error: e }); //실패
     }
   };
 
@@ -156,6 +174,35 @@ export default function room(state = initialState, action) {
         error: null,
       };
     case SETTING_ROOM_ERROR:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+      };
+    case CHANGEPROFILE:
+      return {
+        ...state,
+
+        isLoading: true,
+        error: null,
+      };
+    case CHANGEPROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: {
+          ...state.data,
+          gameRoom: {
+            ...state.data.gameRoom,
+            users: state.data.gameRoom.users.map((u, i) => {
+              //캐릭터 변경한 user id로 user를 찾아내서 character값 변경하는 로직
+            }),
+          },
+        },
+      };
+    case CHANGEPROFILE_ERROR:
       return {
         ...state,
 

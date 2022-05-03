@@ -28,13 +28,23 @@ const MainContainer = () => {
   };
 
   const makeRoom = () => {
-    dispatch(postMakeRoom(nickName, getImg));
+    if (nickName == "") {
+      alert("닉네임을 설정해주세요");
+      return;
+    } else {
+      dispatch(postMakeRoom(nickName, getImg));
+    }
   };
 
   const enterRoom = () => {
     console.log("enter");
     console.log(roomId);
-    dispatch(postEnterRoom(roomId, nickName, getImg));
+    if (nickName == "") {
+      alert("닉네임을 설정해주세요");
+      return;
+    } else {
+      dispatch(postEnterRoom(roomId, nickName, getImg));
+    }
   };
   return (
     <div className="Wrap">
