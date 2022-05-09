@@ -6,10 +6,13 @@ import Button from "./Button";
 import Navigation from "./Navigation";
 import Setting from "./Setting";
 import Character from "./Character";
-import CharaterImg from "../data/character";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
-import { updateUsers, settingRoom } from "../modules/room";
+import { updateUsers, settingRoom, changeCharacter } from "../modules/room";
+import { characterpop } from "../modules/character";
+import Change from "./ChageCharacter";
+import Button2 from "./Button2";
+import {CgCrown } from "react-icons/cg";
 
 const Wrap = styled.div`
   position: relative;
@@ -63,18 +66,39 @@ const Footer = styled.div`
   align-items: center;
 `;
 
+const HostIcon = styled(CgCrown)`
+position:absolute;
+left:35px;
+bottom:70px;
+color: #FFFF36;
+width: 3em;
+height: 3em;
+`
+const Host = styled.div`
+position:relative;
+width: 120px;
+height: 120px;
+`
+
 const WaitingRoomContainer = () => {
   const [topic, setTopic] = useState("");
   const [timeLimit, setTimeLimit] = useState();
+  const [character, setCharacter] = useState();
+
   //socket 연결
   const sock = new SockJs("http://3.35.178.104/socket");
 
   //stomp 연결
   const stomp = StompJs.over(sock);
 
+
   const { PopUp } = useSelector((state) => ({
     PopUp: state.popup.PopUp,
   })); //초기값 false;
+
+  const {CharacterPop} =useSelector((state)=> ({
+    CharacterPop: state.characterpop.CharacterPop,
+  }));
 
   const { Rooms } = useSelector((state) => ({
     Rooms: state.room,
@@ -119,9 +143,9 @@ const WaitingRoomContainer = () => {
       stomp.subscribe(
         `/sub/game/profile/${Rooms.data.gameRoom.roomId}`,
         (body) => {
-          console.log(JSON.parse(body.body));
-
-          //이후 처리
+          let data = JSON.parse(body.body);
+          console.log(data);
+          dispatch(changeCharacter(data.data));
         }
       );
 
@@ -135,6 +159,14 @@ const WaitingRoomContainer = () => {
           //이후 처리
         }
       );
+
+      stomp.subscribe(
+        `/sub/game/start/${Rooms.data.gameRoom.roomId}`,
+        (body) => {
+          let data = JSON.parse(body.body);
+          
+        }
+      )
     });
   }
 
@@ -161,8 +193,7 @@ const WaitingRoomContainer = () => {
       JSON.stringify({
         roomId: Rooms.data.gameRoom.roomId,
         userId: Rooms.data.userId,
-        nickname: "change",
-        character: "changechracter",
+        character: character,
       })
     );
   }
@@ -189,21 +220,35 @@ const WaitingRoomContainer = () => {
     dispatch(popup());
   };
 
+  const OnclickCharacter = () => {
+    dispatch(characterpop());
+  };
+
   const OnClickSetting = () => {
     sendSetting();
     OnclickPopUp();
   };
+
+  const OnClickChangeProfile = () => {
+    changeUserProfile();
+    OnclickCharacter();
+  }
+
+
   return (
     <Wrap>
       <Navigation
         PopUp={PopUp}
         OnclickPopUp={OnclickPopUp}
+        OnclickCharacter={OnclickCharacter}
         sendLeave={sendLeave}
       />
 
       {PopUp ? (
         <Setting setTopic={setTopic} setTimeLimit={setTimeLimit}></Setting>
-      ) : (
+      ) :CharacterPop ? (
+        <Change setCharacter={setCharacter}/>
+      ) :(
         <>
           <RoomInfo>
             <span className="text">방 코드</span>
@@ -219,25 +264,39 @@ const WaitingRoomContainer = () => {
             {Rooms.isLoading || Rooms.error ? (
               <></>
             ) : (
-              Rooms.data.gameRoom.users.map((user, i) => (
-                <Character
+                Rooms.data.gameRoom.users.map((user, i) => (
+                  user.role == "host" ? 
+                  <Host>
+                    <HostIcon/>
+                  <Character
+                    key={i}
+                    src={"/img/character-" + user.character + ".png"}
+                    width="100px"
+                    height="100px"
+                    nickName={user.nickname}
+                  />
+                  </Host>
+                  : <Character
                   key={i}
                   src={"/img/character-" + user.character + ".png"}
                   width="100px"
                   height="100px"
                   nickName={user.nickname}
                 />
-              ))
+                ))
+              
             )}
           </Content>
         </>
+        
       )}
-
       <Footer>
         {PopUp ? (
           <Button value="확인" OnClickSetting={OnClickSetting} />
+        ) :CharacterPop ? (
+          <Button2 value="변경" OnClickChangeProfile = {OnClickChangeProfile}/>
         ) : (
-          <Button value="게임 시작" />
+          <Button value="게임 시작"/>
         )}
       </Footer>
     </Wrap>

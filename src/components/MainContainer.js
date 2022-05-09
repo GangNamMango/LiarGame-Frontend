@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./MainContainer.css";
 import CharaterImg from "../data/character";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postMakeRoom, postEnterRoom } from "../modules/room";
 
 const MainContainer = () => {
@@ -28,13 +26,22 @@ const MainContainer = () => {
   };
 
   const makeRoom = () => {
-    dispatch(postMakeRoom(nickName, getImg));
+    if(nickName == ""){
+      alert('닉네임을 설정해주세요');
+      return;
+    }
+    else {dispatch(postMakeRoom(nickName, getImg));}
+    
   };
 
   const enterRoom = () => {
     console.log("enter");
     console.log(roomId);
-    dispatch(postEnterRoom(roomId, nickName, getImg));
+    if(nickName == ""){
+      alert('닉네임을 설정해주세요');
+      return;
+    }
+    else{dispatch(postEnterRoom(roomId, nickName, getImg));}
   };
   return (
     <div className="Wrap">
@@ -56,10 +63,13 @@ const MainContainer = () => {
             className="Blue"
             open={Join}
             onClick={() => {
-              enterRoom(), setJoin(!Join);
+              enterRoom();
             }}
           >
             입장하기
+          </p>
+          <p className="Blue" onClick={()=>setJoin(!Join)}>
+            취소
           </p>
         </div>
         <div className={open ? "Cha_select" : "hidden"}>

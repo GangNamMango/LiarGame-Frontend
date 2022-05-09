@@ -1,5 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import styled from "styled-components";
+
 
 const CharacterImg = styled.img`
   border: 4px solid #54b5c2;
@@ -15,12 +18,16 @@ const CharacterName = styled.div`
   color: #b9b9b9;
 `;
 
-const Character = ({ src, width, height, nickName }) => {
+const Character = ({ src, width, height, nickName}) => {
   return (
-    <div style={{ margin: "10px" }}>
-      <CharacterImg src={src} width={width} height={height} />
+    <div> 
+      <div style={{ margin: "10px" }}>
+      <CharacterImg src={src} width={width} height={height}/>
       <CharacterName>{nickName}</CharacterName>
     </div>
+      
+    </div>
+    
   );
 };
 

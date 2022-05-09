@@ -17,6 +17,14 @@ const UPDATEUSERS = "UPDATEUSERS"; // 요청 시작
 const UPDATEUSERS_SUCCESS = "UPDATEUSERS_SUCCESS"; // 요청 성공
 const UPDATEUSERS_ERROR = "UPDATEUSERS_ERROR"; // 요청 실패
 
+const CHANGEPROFILE = "CHANGEPROFILE";
+const CHANGEPROFILE_SUCCESS = "CHANGEPROFILE_SUCCESS";
+const CHANGEPROFILE_ERROR = "CHANGEPROFILE_ERROR";
+
+const STARTGAME = "STARTGAME";
+const STARTGAME_SUCCESS = "STARTGAME_SUCCESS";
+const STARTGAME_ERROR = "STARTGAME_ERROR";
+
 export const postMakeRoom =
   (nickName, getImg) =>
   async (dispatch, getState, { history }) => {
@@ -58,6 +66,20 @@ export const settingRoom =
     }
   };
 
+  export const changeCharacter =
+  (character) =>
+  async (dispatch, getState, {history}) => {
+    dispatch({ type: CHANGEPROFILE}); //요청이 시작됨
+    try {
+      dispatch({
+        type: CHANGEPROFILE_SUCCESS,
+        room: {character: character},
+      }); //성공
+    } catch(e) {
+      dispatch({ type: CHANGEPROFILE_ERROR,error: e}); //실패
+    }
+  }
+
 export const updateUsers =
   (users) =>
   async (dispatch, getState, { history }) => {
@@ -71,6 +93,7 @@ export const updateUsers =
       dispatch({ type: UPDATEUSERS_ERROR, error: e }); // 실패
     }
   };
+
 
 const initialState = {
   isLoading: null,
@@ -163,6 +186,35 @@ export default function room(state = initialState, action) {
         data: null,
         error: action.error,
       };
+      case CHANGEPROFILE:
+        return {
+          ...state,
+
+          isLoading: true,
+          error: null,
+        };
+      case CHANGEPROFILE_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          data: {
+            ...state.data,
+            gameRoom: {
+              ...state.data.gameRoom,
+              users: action.room.character,
+            },
+          },
+          
+          
+        };
+      case CHANGEPROFILE_ERROR:
+        return{
+          ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+        }
 
     case UPDATEUSERS:
       return {
@@ -197,3 +249,4 @@ export default function room(state = initialState, action) {
       return state;
   }
 }
+

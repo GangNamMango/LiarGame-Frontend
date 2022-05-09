@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { HiArrowNarrowLeft, HiCog } from "react-icons/hi";
+import { CgProfile} from "react-icons/cg";
 
 const Nav = styled.div`
   display: flex;
@@ -29,9 +30,12 @@ const Menu = styled.div`
   }
 `;
 
-const Navigation = ({ PopUp, OnclickPopUp, sendLeave }) => {
+const Navigation = ({ PopUp, OnclickPopUp, sendLeave, OnclickCharacter}) => {
   const onToggle = () => {
     OnclickPopUp();
+  };
+  const onToggle2 = () => {
+    OnclickCharacter();
   };
   return (
     <Nav>
@@ -40,6 +44,9 @@ const Navigation = ({ PopUp, OnclickPopUp, sendLeave }) => {
           <HiArrowNarrowLeft className="icon" />
         </Menu>
       </Link>
+      <Menu onClick={onToggle2}>
+        <CgProfile className="icon" />
+      </Menu>
       <Menu onClick={onToggle}>
         <HiCog className="icon" />
       </Menu>

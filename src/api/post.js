@@ -16,3 +16,4 @@ export const postEnterRoom = (roomId, nickName, getImg) =>
       character: getImg,
     },
   });
+
