@@ -1,5 +1,5 @@
 const Topics = [
-  "외국 영화",
+  "foreign_movie",
   "한국 영화",
   "음식",
   "직업",

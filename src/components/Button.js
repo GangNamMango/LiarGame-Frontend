@@ -20,10 +20,10 @@ const Btn = styled.button`
   }
 `;
 
-const Button = ({ value, OnClickSetting }) => {
+const Button = ({ value, OnClick }) => {
   
   function click(e) {
-    OnClickSetting();
+    OnClick();
   }
   
   return <Btn onClick={click}>{value}</Btn>;

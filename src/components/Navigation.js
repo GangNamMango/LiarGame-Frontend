@@ -30,7 +30,7 @@ const Menu = styled.div`
   }
 `;
 
-const Navigation = ({ PopUp, OnclickPopUp, sendLeave, OnclickCharacter}) => {
+const Navigation = ({ CharacterPop,PopUp, OnclickPopUp, sendLeave, OnclickCharacter}) => {
   const onToggle = () => {
     OnclickPopUp();
   };
@@ -40,14 +40,14 @@ const Navigation = ({ PopUp, OnclickPopUp, sendLeave, OnclickCharacter}) => {
   return (
     <Nav>
       <Link to={"/"}>
-        <Menu className={PopUp ? "hidden" : ""} onClick={() => sendLeave()}>
+        <Menu className={PopUp || CharacterPop ? "hidden" : ""} onClick={() => sendLeave()}>
           <HiArrowNarrowLeft className="icon" />
         </Menu>
       </Link>
-      <Menu onClick={onToggle2}>
+      <Menu className={PopUp ? "hidden" : ""} onClick={onToggle2}>
         <CgProfile className="icon" />
       </Menu>
-      <Menu onClick={onToggle}>
+      <Menu className={CharacterPop ? "hidden" : ""} onClick={onToggle}>
         <HiCog className="icon" />
       </Menu>
     </Nav>

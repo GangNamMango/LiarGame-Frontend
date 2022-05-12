@@ -1,12 +1,12 @@
 import React from "react";
-import Liar from "../components/Game/Liar";
+import Hide from "../components/Game/Hide";
 
 import GlobalStyle from "../GlobalStyles";
 
 const GamePage = () => {
   return (
     <>
-        <Liar/>
+        <Hide/>
         <GlobalStyle />
     </>
   );

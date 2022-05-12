@@ -94,6 +94,21 @@ export const updateUsers =
     }
   };
 
+  export const startGame = 
+    (liarName,topic,word,roomId) =>
+    async (dispatch,getState,{history}) =>{
+      dispatch({ type: STARTGAME});
+      try{
+        dispatch({
+          type: STARTGAME_SUCCESS,
+          room: liarName,
+        });
+        history.push(`/game?roomId=${roomId}`);
+      } catch(e){
+        dispatch({ type: UPDATEUSERS_ERROR, error: e});
+      }
+    }
+
 
 const initialState = {
   isLoading: null,
@@ -238,6 +253,40 @@ export default function room(state = initialState, action) {
         error: null,
       };
     case UPDATEUSERS_ERROR:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+      };
+    case STARTGAME:
+      return {
+        ...state,
+
+        isLoading: true,
+        error:null,
+      };
+    case STARTGAME_SUCCESS:
+      return{
+        ...state,
+
+        isLoading: false,
+        data: {
+          ...state.data,
+          gameRoom: {
+            ...state.data.gameRoom,
+            gameSet: {
+              ...state.data.gameRoom.gameSet,
+            liarName: action.room.liarName,
+            topic: action.room.topic,
+            word: action.room.word,
+          }
+          }
+        },
+        error: null,
+      };
+      case STARTGAME_ERROR:
       return {
         ...state,
 

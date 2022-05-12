@@ -8,11 +8,12 @@ import Setting from "./Setting";
 import Character from "./Character";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
-import { updateUsers, settingRoom, changeCharacter } from "../modules/room";
+import { updateUsers, settingRoom, changeCharacter,startGame } from "../modules/room";
 import { characterpop } from "../modules/character";
 import Change from "./ChageCharacter";
 import Button2 from "./Button2";
 import {CgCrown } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 const Wrap = styled.div`
   position: relative;
@@ -125,6 +126,7 @@ const WaitingRoomContainer = () => {
         `/sub/game/enter/${Rooms.data.gameRoom.roomId}`,
         (body) => {
           let data = JSON.parse(body.body);
+          console.log(Rooms.data.gameRoom.users.nickname)
           dispatch(updateUsers(data.data));
           //이후 처리
         }
@@ -159,11 +161,12 @@ const WaitingRoomContainer = () => {
           //이후 처리
         }
       );
-
+      //게임이 시작됐을때 이벤트
       stomp.subscribe(
         `/sub/game/start/${Rooms.data.gameRoom.roomId}`,
         (body) => {
           let data = JSON.parse(body.body);
+          dispatch(startGame(data.data));
           
         }
       )
@@ -196,6 +199,17 @@ const WaitingRoomContainer = () => {
         character: character,
       })
     );
+  }
+
+  function StartGame() {
+    stomp.send(
+      "/pub/game/start",
+      {},
+      JSON.stringify({
+        roomId: Rooms.data.gameRoom.roomId,
+        userId: Rooms.data.userId,
+      })
+    )
   }
 
   function disconnect() {
@@ -234,11 +248,16 @@ const WaitingRoomContainer = () => {
     OnclickCharacter();
   }
 
+  const OnClickStartGame = () => {
+    StartGame();
+  }
+
 
   return (
     <Wrap>
       <Navigation
         PopUp={PopUp}
+        CharacterPop={CharacterPop}
         OnclickPopUp={OnclickPopUp}
         OnclickCharacter={OnclickCharacter}
         sendLeave={sendLeave}
@@ -292,11 +311,11 @@ const WaitingRoomContainer = () => {
       )}
       <Footer>
         {PopUp ? (
-          <Button value="확인" OnClickSetting={OnClickSetting} />
+          <Button value="확인" OnClick={OnClickSetting} />
         ) :CharacterPop ? (
           <Button2 value="변경" OnClickChangeProfile = {OnClickChangeProfile}/>
         ) : (
-          <Button value="게임 시작"/>
+          <Button value="게임 시작" OnClick={OnClickStartGame}/>
         )}
       </Footer>
     </Wrap>
