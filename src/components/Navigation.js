@@ -7,7 +7,7 @@ import { CgProfile} from "react-icons/cg";
 const Nav = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 15%;
+  height: 120px;
   margin: 0 24px;
 `;
 

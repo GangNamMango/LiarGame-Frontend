@@ -1,9 +1,128 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 
+const Flip = keyframes`
+0%{
+  transform: rotateY(0deg);
+}
+50%{
+  transform: rotateY(-90deg);
+}
+100%{
+  transform: rotateY(-180deg);
+}
+`
+const Wrap = styled.div`
+position: relative;
+width: 100vh;
+max-width: 390px;
+height: 100vh;
+background: #0f0c13;
+margin: 0 auto;
+`;
+const Timer = styled.p`
+position:absolute;
+left:50%;
+transform: translateX(-50%);
+color:#53A6C8;
+margin-top:58px;
+font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 55px;
+line-height: 69px;
+`
+const Subject = styled.p`
+display:flex;
+justify-content:space-around;
+color:#fff;
+padding-top:140px;
+margin: 0 56px 0 70px;
+font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 80px;
+
+`
+const Topic = styled.span`
+font-size:55px;
+line-height: 69px;
+`
+const CardArea = styled.div`
+perspective:1100px;
+
+`
+const FrontCardSection = styled.div`
+
+position:absolute;
+left: 45px;
+top: 80px;
+width: 300px;
+height: 467px;
+background: #0F0C13;
+border: 13px solid #6171A3;
+border-radius: 20px;
+animation: ${Flip} 0.7s linear;
+img{
+  position:absolute;
+  margin-top:124px;
+  left:50%;
+  transform:translateX(-50%);
+  width:150px;
+}
+img+img{
+  bottom:14px;
+}
+`
+const BackCardSection = styled.div`
+position:fixed;
+left: 45px;
+top: 80px;
+width: 300px;
+height: 467px;
+background: #0F0C13;
+border: 13px solid #6171A3;
+border-radius: 20px;
+animation: ${Flip} 0.7s linear;
+
+img{
+  position:absolute;
+  left:50%;
+  transform:translate(-50%,-10%);
+  width:110px;
+}
+  p{
+    width: 100%;
+    height: 36px;
+    font-family: 'Do Hyeon';
+    font-style: normal;
+  font-weight: 400;
+    font-size: 40px;
+  line-height: 50px;
+    text-align: center;
+  margin-top:142px;
+  color: #E9DFF5;
+  }
+  p+p{
+    margin-top:56px;
+  }
+  p:nth-child(3){
+    font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 50px;
+line-height: 40px;
+text-align: center;
+
+color: #53A6C8;
+
+
+  }
+`
 const Hide = () => {
   const { Rooms } = useSelector((state) => ({
     Rooms: state.room,
@@ -15,108 +134,7 @@ const Hide = () => {
     const stomp = StompJs.over(sock);
     const [turn,setTurn] = useState(false);
     const [seconds, setSeconds] = useState(Rooms.data.gameRoom.setting.timeLimit);
-    const Wrap = styled.div`
-    position: relative;
-    width: 100vh;
-    max-width: 390px;
-    height: 100vh;
-    background: #0f0c13;
-    margin: 0 auto;
-  `;
-    const Timer = styled.p`
-    position:absolute;
-    left:50%;
-    transform: translateX(-50%);
-    color:#53A6C8;
-    margin-top:58px;
-    font-family: 'Do Hyeon';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 55px;
-    line-height: 69px;
-    `
-    const Subject = styled.p`
-    position:absolute;
-    display:flex;
-    
-    left:50%;
-    transform:translateX(-50%);
-    color:#fff;
-    margin-top:120px;
-    font-family: 'Do Hyeon';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 69px;
-    padding: 0px 0px;
-    .Subject{
-      font-size:40px;
-    }
-    `
-    const Topic = styled.span`
-    font-size:40px;
-    `
-    const CardArea = styled.div`
-    perspective:300px;
-    `
-    const CardSection = styled.div`
-    
-    position:absolute;
-    left: 45px;
-top: 300px;
-    width: 300px;
-height: 467px;
-    background: #0F0C13;
-border: 13px solid #6171A3;
-border-radius: 20px;
-backface-visibility: hidden;
-transition:1s;
 
-
-    img{
-      position:absolute;
-      margin-top:124px;
-      left:50%;
-      transform:translateX(-50%);
-      width:150px;
-    }
-    img+img{
-      bottom:14px;
-    }
-    `
-    const LiarCardSection = styled.div`
-    position:fixed;
-    left: 45px;
-top: 300px;
-    width: 300px;
-height: 467px;
-    background: #0F0C13;
-border: 13px solid #6171A3;
-border-radius: 20px;
-
-transition:1s ease-in-out; 
-    img{
-      position:absolute;
-      left:50%;
-      transform:translate(-50%,-10%);
-      width:110px;
-    }
-      p{
-        width: 100%;
-        height: 36px;
-        font-family: 'Do Hyeon';
-        font-style: normal;
-      font-weight: 400;
-        font-size: 40px;
-      line-height: 50px;
-        text-align: center;
-      margin-top:142px;
-      color: #E9DFF5;
-      }
-      p+p{
-        margin-top:56px;
-      }
-    `
     React.useEffect(() => {
       stompConnect();
     }, []);
@@ -125,7 +143,6 @@ transition:1s ease-in-out;
       stomp.connect({}, () => {
         stomp.subscribe(`/sub/game/countdown/${Rooms.data.gameRoom.roomId}`, (body) => {
           let data = JSON.parse(body.body);
-          console.log(data);
         });
       }
       )}
@@ -146,23 +163,23 @@ transition:1s ease-in-out;
           {seconds}
           </Timer>
           <Subject>
-          주제:<Topic>{Rooms.data.gameRoom.setting.topic}</Topic>
+          주제 <Topic>{Rooms.data.gameRoom.setting.topic}</Topic>
           </Subject>
           <CardArea>
-          {turn==false ? <CardSection onClick={()=>setTurn(!turn)}>
+          {turn==false ? <FrontCardSection onClick={()=>setTurn(!turn)}>
           <img src={'/img/로고 돋보기.png'} />
           <img src={'/img/게임명.png'} />
-          </CardSection>  : Rooms.data.userId == Rooms.data.gameRoom.gameSet.liarId ? <LiarCardSection  onClick={()=>setTurn(!turn)}>
+          </FrontCardSection>  : Rooms.data.userId == Rooms.data.gameRoom.gameSet.liarId ? <BackCardSection  onClick={()=>setTurn(!turn)}>
           <img src={'/img/동글 캐릭터.png'} />
             <p>당신은</p>
             <p>라이어</p>
             <p>입니다</p>
-          </LiarCardSection>: <LiarCardSection  onClick={()=>setTurn(!turn)}>
+          </BackCardSection>: <BackCardSection  onClick={()=>setTurn(!turn)}>
           <img src={'/img/동글 캐릭터.png'} />
             <p>제시어</p>
             <p>{Rooms.data.gameRoom.gameSet.word}</p>
             <p>입니다</p>
-          </LiarCardSection>
+          </BackCardSection>
           }
           </CardArea>
         </Wrap>

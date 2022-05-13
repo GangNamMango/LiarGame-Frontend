@@ -27,16 +27,26 @@ const Wrap = styled.div`
 const RoomInfo = styled.div`
   display: flex;
   height: 30px;
-  margin-bottom: 10px;
-  text-align: center;
+  margin: 0 20px 90px 20px;
+  justify-content:space-around;
+  .text{
+    font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 69px;
+text-align: center;
 
-  .text,
-  .number {
-    margin: auto;
+color: #53A6C8;
+  }
+  .number{
+    font-family: 'Do Hyeon';
+    font-style: normal;
     font-weight: 400;
-    font-size: 26px;
-    line-height: 30px;
-    color: #54b5c2;
+    font-size: 55px;
+    line-height: 69px;
+    text-align: center;
+    color: #53A6C8;
   }
 `;
 

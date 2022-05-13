@@ -12,12 +12,14 @@ const NavContainer = () => {
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 28px;
-    text-align: center;
+    font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 28px;
+line-height: 35px;
+text-align: center;
+
+color: #53A6C8;
     color: #54b5c2;
     transition: none;
   `;
@@ -32,6 +34,7 @@ const NavContainer = () => {
         <span></span>
         <span></span>
       </div>
+      <div><img className="GameLogo" src="/img/게임명.png"/></div>
       <div className={popup ? "bg" : ""}></div>
       <div className={popup ? "popup_area" : "hidden"}>
         <div className={game ? "block" : "none"}>

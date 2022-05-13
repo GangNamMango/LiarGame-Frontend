@@ -50,7 +50,7 @@ const MainContainer = () => {
           <img src={"/img/character-" + getImg + ".png"} />
         </div>
         <div className={Join ? "Join" : "hidden"}>
-          <h1 className="title Blue">방코드</h1>
+          <h1 className="title Blue_Gugi">방코드</h1>
           <input
             className="code_text"
             type="text"
@@ -106,8 +106,8 @@ const MainContainer = () => {
                 방만들기
               </span>
             </li>
-            <li open={Join} onClick={() => setJoin(!Join)}>
-              참여하기
+            <li  open={Join} onClick={() => setJoin(!Join)}>
+              <span className="Blue">참여하기</span>
             </li>
           </ul>
         </div>

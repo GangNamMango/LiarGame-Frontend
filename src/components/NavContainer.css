@@ -96,13 +96,15 @@
   background: #201651;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  font-family: "Roboto";
+  font-family: 'Do Hyeon';
   font-style: normal;
   font-weight: 400;
-  font-size: 26px;
+  font-size: 32px;
   line-height: 55px;
   text-align: center;
-  color: #54b5c2;
+  
+  color: #53A6C8;
+  
   transition: all 0.5s linear;
 }
 .popup_area ul li + li {
@@ -160,4 +162,12 @@
 .none {
   position: absolute;
   opacity: 0;
+}
+
+.GameLogo{
+  position: absolute;
+width: 193px;
+height: 59px;
+left: 99px;
+top: 10px;
 }
