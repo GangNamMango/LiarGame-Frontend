@@ -49,7 +49,7 @@ const Title = styled.div`
   color: #54b5c2;
 `;
 const topics = Topics;
-const timeLimits = [10, 20, 30, 60];
+const timeLimits = [60, 90, 120, 150, 180];
 
 const Setting = ({ setTopic, setTimeLimit }) => {
   return (

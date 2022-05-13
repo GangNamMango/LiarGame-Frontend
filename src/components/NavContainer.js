@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "./NavContainer.css";
 const NavContainer = () => {
-  const [Popup, setPopup] = useState(false);
-  const [Game, setGame] = useState(false);
-  const [HTR, setHTR] = useState(false);
-  const [HTJ, setHTJ] = useState(false);
+  const [popup, setPopup] = useState(false);
+  const [game, setGame] = useState(false);
+  const [htr, setHtr] = useState(false);
+  const [htj, setHtj] = useState(false);
   const Button = styled.h1`
     position: absolute;
     left: 50%;
@@ -24,20 +24,20 @@ const NavContainer = () => {
   return (
     <div className="Nav_area">
       <div
-        className={Popup ? "Nav_close" : "Nav_open"}
-        Popup={Popup}
-        onClick={() => setPopup(!Popup)}
+        className={popup ? "Nav_close" : "Nav_open"}
+        popup={popup}
+        onClick={() => setPopup(!popup)}
       >
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <div className={Popup ? "bg" : ""}></div>
-      <div className={Popup ? "popup_area" : "hidden"}>
-        <div className={Game ? "block" : "none"}>
-          <Button onClick={() => setGame(!Game)}>확인</Button>
+      <div className={popup ? "bg" : ""}></div>
+      <div className={popup ? "popup_area" : "hidden"}>
+        <div className={game ? "block" : "none"}>
+          <Button onClick={() => setGame(!game)}>확인</Button>
         </div>
-        <div className={HTR ? "block" : "none"}>
+        <div className={htr ? "block" : "none"}>
           <div>
             <p>
               <span>1</span> 방 만들기 버튼을 클릭하세요
@@ -53,9 +53,9 @@ const NavContainer = () => {
               <span>3</span> 게임 주제와 시간을 바꿔보세요
             </p>
           </div>
-          <Button onClick={() => setHTR(!HTR)}>확인</Button>
+          <Button onClick={() => setHtr(!htr)}>확인</Button>
         </div>
-        <div className={HTJ ? "block" : "none"}>
+        <div className={htj ? "block" : "none"}>
           <div>
             <p>
               <span>1</span> 대기실의 방 코드를 방장에게 요청하세요
@@ -71,27 +71,27 @@ const NavContainer = () => {
               <span>3</span> 방코드를 입력하세요
             </p>
           </div>
-          <Button onClick={() => setHTJ(!HTJ)}>확인</Button>
+          <Button onClick={() => setHtj(!htj)}>확인</Button>
         </div>
         <ul>
           <li
-            className={Game ? "Move_top" : ""}
-            Game={Game}
-            onClick={() => setGame(!Game)}
+            className={game ? "Move_top" : ""}
+            game={game}
+            onClick={() => setGame(!game)}
           >
             게임방법
           </li>
           <li
-            className={HTR ? "Move_top" : ""}
-            HTR={HTR}
-            onClick={() => setHTR(!HTR)}
+            className={htr ? "Move_top" : ""}
+            htr={htr}
+            onClick={() => setHtr(!htr)}
           >
             방 만드는 법
           </li>
           <li
-            className={HTJ ? "Move_top" : ""}
-            HTJ={HTJ}
-            onClick={() => setHTJ(!HTJ)}
+            className={htj ? "Move_top" : ""}
+            htj={htj}
+            onClick={() => setHtj(!htj)}
           >
             참여하는 법
           </li>

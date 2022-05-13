@@ -83,7 +83,7 @@ height: 120px;
 
 const WaitingRoomContainer = () => {
   const [topic, setTopic] = useState("");
-  const [timeLimit, setTimeLimit] = useState();
+  const [timeLimit, setTimeLimit] = useState(60);
   const [character, setCharacter] = useState();
 
   //socket 연결
@@ -166,6 +166,7 @@ const WaitingRoomContainer = () => {
         `/sub/game/start/${Rooms.data.gameRoom.roomId}`,
         (body) => {
           let data = JSON.parse(body.body);
+          console.log(data);
           dispatch(startGame(data.data));
           
         }

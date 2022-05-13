@@ -95,13 +95,13 @@ export const updateUsers =
   };
 
   export const startGame = 
-    (liarName,topic,word,roomId) =>
+    (liarId,roomId) =>
     async (dispatch,getState,{history}) =>{
       dispatch({ type: STARTGAME});
       try{
         dispatch({
           type: STARTGAME_SUCCESS,
-          room: liarName,
+          room: liarId,
         });
         history.push(`/game?roomId=${roomId}`);
       } catch(e){
@@ -278,7 +278,7 @@ export default function room(state = initialState, action) {
             ...state.data.gameRoom,
             gameSet: {
               ...state.data.gameRoom.gameSet,
-            liarName: action.room.liarName,
+            liarId: action.room.liarId,
             topic: action.room.topic,
             word: action.room.word,
           }

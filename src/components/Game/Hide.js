@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useInsertionEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Liar from "./Liar";
-import NoLiar from "./NoLiar";
+import SockJs from "sockjs-client";
+import StompJs from "stompjs";
 
 const Hide = () => {
   const { Rooms } = useSelector((state) => ({
     Rooms: state.room,
   }));
+    //socket 연결
+    const sock = new SockJs("http://3.35.178.104/socket");
+
+    //stomp 연결
+    const stomp = StompJs.over(sock);
     const [turn,setTurn] = useState(false);
     const [seconds, setSeconds] = useState(Rooms.data.gameRoom.setting.timeLimit);
     const Wrap = styled.div`
@@ -48,6 +52,9 @@ const Hide = () => {
     .Subject{
       font-size:40px;
     }
+    `
+    const Topic = styled.span`
+    font-size:40px;
     `
     const CardArea = styled.div`
     perspective:300px;
@@ -110,6 +117,18 @@ transition:1s ease-in-out;
         margin-top:56px;
       }
     `
+    React.useEffect(() => {
+      stompConnect();
+    }, []);
+    
+    function stompConnect() {
+      stomp.connect({}, () => {
+        stomp.subscribe(`/sub/game/countdown/${Rooms.data.gameRoom.roomId}`, (body) => {
+          let data = JSON.parse(body.body);
+          console.log(data);
+        });
+      }
+      )}
 
   useEffect(()=>{
     const countdown = setInterval(()=>{
@@ -127,13 +146,13 @@ transition:1s ease-in-out;
           {seconds}
           </Timer>
           <Subject>
-          주제:<span className="Subject">{Rooms.data.gameRoom.setting.topic}</span>
+          주제:<Topic>{Rooms.data.gameRoom.setting.topic}</Topic>
           </Subject>
           <CardArea>
           {turn==false ? <CardSection onClick={()=>setTurn(!turn)}>
           <img src={'/img/로고 돋보기.png'} />
           <img src={'/img/게임명.png'} />
-          </CardSection>  : Rooms.data.gameRoom.gameSet.liarName == Rooms.data.gameRoom.users.nickname ? <LiarCardSection  onClick={()=>setTurn(!turn)}>
+          </CardSection>  : Rooms.data.userId == Rooms.data.gameRoom.gameSet.liarId ? <LiarCardSection  onClick={()=>setTurn(!turn)}>
           <img src={'/img/동글 캐릭터.png'} />
             <p>당신은</p>
             <p>라이어</p>
