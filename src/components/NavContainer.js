@@ -34,7 +34,7 @@ color: #53A6C8;
         <span></span>
         <span></span>
       </div>
-      <div><img className="GameLogo" src="/img/게임명.png"/></div>
+      <div><img className="GameLogo" src="/img/GameName.png"/></div>
       <div className={popup ? "bg" : ""}></div>
       <div className={popup ? "popup_area" : "hidden"}>
         <div className={game ? "block" : "none"}>

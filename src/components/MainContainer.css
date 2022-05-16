@@ -34,7 +34,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 324px;
-  height: 60vh;
+  height: 550px;
   background: #0f0c13;
   border: 15px solid #201651;
   border-radius: 20px;
@@ -76,7 +76,7 @@ color: #53A6C8;
   color: #54b5c2;
 }
 .Cha_select .img_select {
-  height: 50vh;
+  height: 500px;
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;

@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { Router } from "react-router-dom";
+import {Router } from "react-router-dom";
 import rootReducer from "./useRedux/rootReducer";
 import { createBrowserHistory } from "history";
 import { persistStore } from "redux-persist";

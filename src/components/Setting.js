@@ -57,7 +57,7 @@ color: #53A6C8;
 
 `;
 const topics = Topics;
-const timeLimits = [60, 90, 120, 150, 180];
+const timeLimits = [1,60, 90, 120, 150, 180];
 
 const Setting = ({ setTopic, setTimeLimit }) => {
   return (

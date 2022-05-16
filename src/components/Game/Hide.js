@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
+import { countDown, vote } from "../../modules/room";
+import Button from "../Button";
+import Vote from "./Vote";
 
 const Flip = keyframes`
 0%{
@@ -79,7 +82,7 @@ img+img{
 }
 `
 const BackCardSection = styled.div`
-position:fixed;
+position:absolute;
 left: 45px;
 top: 80px;
 width: 300px;
@@ -119,9 +122,11 @@ line-height: 40px;
 text-align: center;
 
 color: #53A6C8;
-
-
   }
+`
+const NickName =styled.p`
+  color:#fff;
+  text-align: center;
 `
 const Hide = () => {
   const { Rooms } = useSelector((state) => ({
@@ -132,6 +137,8 @@ const Hide = () => {
 
     //stomp 연결
     const stomp = StompJs.over(sock);
+
+    const dispatch = useDispatch();
     const [turn,setTurn] = useState(false);
     const [seconds, setSeconds] = useState(Rooms.data.gameRoom.setting.timeLimit);
 
@@ -143,15 +150,33 @@ const Hide = () => {
       stomp.connect({}, () => {
         stomp.subscribe(`/sub/game/countdown/${Rooms.data.gameRoom.roomId}`, (body) => {
           let data = JSON.parse(body.body);
+          console.log(data.data.count);
+          if(data.data.count==0)
+          dispatch(countDown(data.data));
         });
+        
       }
       )}
+
+      function sendVote() {
+        stomp.send(
+          "/pub/game/vote",
+          {},
+          JSON.stringify({
+            roomId: Rooms.data.gameRoom.roomId,
+            userId: Rooms.data.userId,
+          })
+        );
+      }
+      const OnClickVote = () => {
+        sendVote();
+        console.log(Rooms.data);
+      }
 
   useEffect(()=>{
     const countdown = setInterval(()=>{
       if(parseInt(seconds) > 0){
         setSeconds(parseInt(seconds) - 1);
-        
       }
       if(parseInt(seconds) === 0) clearInterval(countdown);
     },1000);
@@ -159,7 +184,7 @@ const Hide = () => {
   }, [seconds])
     return (
         <Wrap>
-          <Timer>
+          {Rooms.data.gameRoom.gameStatus == "VOTE" ? <Vote/> : <><Timer>
           {seconds}
           </Timer>
           <Subject>
@@ -167,21 +192,21 @@ const Hide = () => {
           </Subject>
           <CardArea>
           {turn==false ? <FrontCardSection onClick={()=>setTurn(!turn)}>
-          <img src={'/img/로고 돋보기.png'} />
-          <img src={'/img/게임명.png'} />
+          <img src={'/img/LogoDot.png'} />
+          <img src={'/img/GameName.png'} />
           </FrontCardSection>  : Rooms.data.userId == Rooms.data.gameRoom.gameSet.liarId ? <BackCardSection  onClick={()=>setTurn(!turn)}>
-          <img src={'/img/동글 캐릭터.png'} />
+          <img src={'/img/Dongle.png'} />
             <p>당신은</p>
             <p>라이어</p>
             <p>입니다</p>
           </BackCardSection>: <BackCardSection  onClick={()=>setTurn(!turn)}>
-          <img src={'/img/동글 캐릭터.png'} />
+          <img src={'/img/Dongle.png'} />
             <p>제시어</p>
             <p>{Rooms.data.gameRoom.gameSet.word}</p>
             <p>입니다</p>
           </BackCardSection>
           }
-          </CardArea>
+          </CardArea></>}
         </Wrap>
 
     )

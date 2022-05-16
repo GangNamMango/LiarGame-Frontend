@@ -167,6 +167,7 @@ const WaitingRoomContainer = () => {
         (body) => {
           let data = JSON.parse(body.body);
           dispatch(updateUsers(data.data));
+          
 
           //이후 처리
         }

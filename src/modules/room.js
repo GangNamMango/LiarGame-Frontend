@@ -25,6 +25,14 @@ const STARTGAME = "STARTGAME";
 const STARTGAME_SUCCESS = "STARTGAME_SUCCESS";
 const STARTGAME_ERROR = "STARTGAME_ERROR";
 
+const COUNTDOWN = "COUNTDOWN";
+const COUNTDOWN_SUCCESS = "COUNTDOWN_SUCCESS";
+const COUNTDOWN_ERROR = "COUNTDOWN_ERROR";
+
+const VOTE = "VOTE";
+const VOTE_SUCCESS = "VOTE_SUCCESS";
+const VOTE_ERROR = "VOTE_ERROR";
+
 export const postMakeRoom =
   (nickName, getImg) =>
   async (dispatch, getState, { history }) => {
@@ -95,7 +103,7 @@ export const updateUsers =
   };
 
   export const startGame = 
-    (liarId,roomId) =>
+    (liarId) =>
     async (dispatch,getState,{history}) =>{
       dispatch({ type: STARTGAME});
       try{
@@ -103,11 +111,40 @@ export const updateUsers =
           type: STARTGAME_SUCCESS,
           room: liarId,
         });
-        history.push(`/game?roomId=${roomId}`);
+        history.push(`/game`);
       } catch(e){
         dispatch({ type: UPDATEUSERS_ERROR, error: e});
       }
-    }
+    };
+
+    export const countDown = 
+    (gameStatus) => 
+    async(dispatch,getState,{history}) =>{
+      dispatch({ type: COUNTDOWN});
+      try{
+        dispatch({
+          type: COUNTDOWN_SUCCESS,
+          room: gameStatus,
+        });
+      } catch(e){
+        dispatch({ type: COUNTDOWN_ERROR, error: e});
+      }
+    };
+
+    export const vote = 
+    (vote) =>
+    async(dispatch,getState,{history}) =>{
+      dispatch({ type: VOTE});
+      try{
+        dispatch({
+          type: VOTE_SUCCESS,
+          room: vote,
+        });
+        
+      } catch(e){
+        dispatch({ type: VOTE_ERROR, error: e});
+      }
+    };
 
 
 const initialState = {
@@ -287,6 +324,68 @@ export default function room(state = initialState, action) {
         error: null,
       };
       case STARTGAME_ERROR:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+      };
+      case COUNTDOWN:
+        return {
+          ...state,
+  
+          isLoading: true,
+          error:null,
+        };
+      case COUNTDOWN_SUCCESS:
+        return{
+          ...state,
+          isLoading: false,
+          data: {
+            ...state.data,
+            gameRoom: {
+              ...state.data.gameRoom,
+              gameStatus: action.room.gameStatus,
+            }
+          },
+          error: null,
+        };
+        case COUNTDOWN_ERROR:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+      };
+      case VOTE:
+        return {
+          ...state,
+  
+          isLoading: true,
+          error:null,
+        };
+        case VOTE_SUCCESS:
+          return{
+            ...state,
+            isLoading: false,
+            data: {
+              ...state.data,
+              gameRoom: {
+                ...state.data.gameRoom,
+                VoteSet: {
+                  ...state.data.gameRoom.VoteSet,
+                  maxVoteCount: action.room.maxVoteCount,
+                  currentVoteCount : action.room.currentVoteCount,
+                  completed: action.room.completed,
+                  notCompleted: action.room.notCompleted,
+                }
+              }
+            },
+            error: null,
+          };
+      case VOTE_ERROR:
       return {
         ...state,
 
