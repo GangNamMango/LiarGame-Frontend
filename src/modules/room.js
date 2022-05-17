@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import * as postAPI from "../api/post"; // api/posts 안의 함수 모두 불러오기
 /* 액션 타입 */
 
@@ -116,6 +117,9 @@ export const updateUsers =
           room: liarId,
         });
         history.push(`/game`);
+          
+        
+        
       } catch(e){
         dispatch({ type: UPDATEUSERS_ERROR, error: e});
       }
@@ -352,7 +356,7 @@ export default function room(state = initialState, action) {
       case COUNTDOWN:
         return {
           ...state,
-  
+          
           isLoading: true,
           error:null,
         };

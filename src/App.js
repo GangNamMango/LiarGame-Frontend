@@ -6,6 +6,7 @@ import WaitingRoomPage from "./pages/WaitingRoomPage";
 import GamePage from "./pages/GamePage";
 import VoteWaitPage from "./pages/VoteWaitPage";
 import ResultPage from "./pages/ResultPage";
+import GamePage2 from "./pages/GamePage2";
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
     <div>
       <Route path="/" component={MainPages} exact={true}/>
       <Route path="/room" component={WaitingRoomPage} />
-      <Route path="/game" component={GamePage}/>
+      <Route path="/game" component={GamePage2}/>
       <Route path="/result" component={ResultPage}/>
     </div>
   );

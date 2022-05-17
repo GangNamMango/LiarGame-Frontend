@@ -242,6 +242,7 @@ const WaitingRoomContainer = () => {
     disconnect();
   }
 
+
   const OnclickPopUp = () => {
     dispatch(popup());
   };
