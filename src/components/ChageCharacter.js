@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import SockJS from "sockjs-client";
-import StompJs from "stompjs";
 import CharaterImg from "../data/character";
-
+import "./ChangeCharacter.css";
 
 
 
@@ -12,7 +10,7 @@ const Change = ({setCharacter}) => {
         setCharacter(i)
     }
     return(
-        <div className= "Cha_select">
+        <div className= "Cha_select_c">
         <div className="title">캐릭터 설정</div>
         <div className="img_select">
             {CharaterImg &&

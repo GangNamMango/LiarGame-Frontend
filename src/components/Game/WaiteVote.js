@@ -29,11 +29,17 @@ line-height: 101px;
 text-align: center;
 
 color: #53A6C8;
+@media screen and (max-width:500px){
+    top:30px;
+}
 `
 const NumWrap = styled.div`
     display:flex;
     padding-top:220px;
     margin: 0 50px;
+    @media screen and (max-width:500px){
+        padding-top:120px;
+    }
 `
 const NUM = styled.p`
 width: 292px;
@@ -64,6 +70,14 @@ width: 193px;
 height: 59px;
 left: 98px;
 top: 761px;
+}
+@media screen and (max-width:500px){
+    img{top:60%;
+    transform:translateY(-50%);
+    }
+    img+img{top:90%;
+        
+        }
 }
 `
 

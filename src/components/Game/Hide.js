@@ -37,6 +37,9 @@ font-style: normal;
 font-weight: 400;
 font-size: 55px;
 line-height: 69px;
+@media screen and (max-width:500px){
+  margin-top:30px;
+}
 `
 const Subject = styled.p`
 display:flex;
@@ -49,7 +52,9 @@ font-style: normal;
 font-weight: 400;
 font-size: 30px;
 line-height: 80px;
-
+@media screen and (max-width:500px){
+  padding-top:100px;
+}
 `
 const Topic = styled.span`
 font-size:55px;
@@ -70,6 +75,7 @@ background: #0F0C13;
 border: 13px solid #6171A3;
 border-radius: 20px;
 animation: ${Flip} 0.7s linear;
+cursor: pointer;
 img{
   position:absolute;
   margin-top:124px;
@@ -79,6 +85,9 @@ img{
 }
 img+img{
   bottom:14px;
+}
+@media screen and (max-width:500px){
+  top:10px;
 }
 `
 const BackCardSection = styled.div`
@@ -91,7 +100,7 @@ background: #0F0C13;
 border: 13px solid #6171A3;
 border-radius: 20px;
 animation: ${Flip} 0.7s linear;
-
+cursor: pointer;
 img{
   position:absolute;
   left:50%;
@@ -122,6 +131,9 @@ line-height: 40px;
 text-align: center;
 
 color: #53A6C8;
+  }
+  @media screen and (max-width:500px){
+    top:10px;
   }
 `
 const NickName =styled.p`

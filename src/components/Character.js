@@ -8,7 +8,6 @@ const CharacterImg = styled.img`
   border: 4px solid #54b5c2;
   border-radius: 20px;
 
-  cursor: pointer;
 `;
 const CharacterName = styled.div`
   font-weight: 300;

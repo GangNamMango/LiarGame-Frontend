@@ -16,7 +16,7 @@ font-weight: 400;
 font-size: 28px;
 line-height: 35px;
 text-align: center;
-
+cursor: pointer;
 color: #53A6C8;
   color: #54b5c2;
   & + & {

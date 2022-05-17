@@ -52,7 +52,7 @@ color: #53A6C8;
 
 const Content = styled.div`
   width: 100%;
-  height: 350px;
+  height: 40vh;
   display: flex;
   padding: 0 5%;
   margin: 0 auto;
@@ -92,7 +92,7 @@ height: 120px;
 `
 
 const WaitingRoomContainer = () => {
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState("랜덤");
   const [timeLimit, setTimeLimit] = useState(60);
   const [character, setCharacter] = useState();
 

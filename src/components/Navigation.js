@@ -27,6 +27,7 @@ const Menu = styled.div`
     color: #54b5c2;
     width: 3em;
     height: 3em;
+    cursor: pointer;
   }
 `;
 

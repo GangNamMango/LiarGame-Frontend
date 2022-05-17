@@ -23,6 +23,7 @@
   box-sizing: border-box;
   border-radius: 50px;
   margin-bottom: 35px;
+  cursor: pointer;
 }
 .Img_area img {
   width: 100%;
@@ -30,7 +31,7 @@
 }
 .Cha_select {
   position: absolute;
-  top: 10%;
+  top: 13%;
   left: 50%;
   transform: translateX(-50%);
   width: 324px;
@@ -39,6 +40,7 @@
   border: 15px solid #201651;
   border-radius: 20px;
   z-index: 100;
+
 }
 .Cha_select .title {
   position: absolute;
@@ -130,6 +132,7 @@ color: #53A6C8;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
 }
 .Btn ul li {
   width: 195px;
@@ -186,6 +189,7 @@ color: #53A6C8;
   z-index: 99;
   border: 15px solid #201651;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .Join .title {
@@ -224,6 +228,7 @@ color: #53A6C8;
   bottom: 0;
   left: 20%;
   transform: translateX(-20%);
+  cursor: pointer;
 }
 .Join p+p{
   left: 80%;
@@ -233,3 +238,72 @@ color: #53A6C8;
 .Checked:focus{
   border: 4px solid #54b5c2;
 }
+.Service {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 324px;
+  height: 550px;
+  background: #0f0c13;
+  border: 15px solid #201651;
+  border-radius: 20px;
+  z-index: 100;
+  overflow: scroll;
+}
+.Service .title{
+  font-family: 'Gugi';
+font-style: normal;
+font-weight: 400;
+font-size: 28px;
+line-height: 35px;
+text-align: center;
+color: #53A6C8;
+margin-bottom: 30px;
+
+}
+.Service div a{
+  display: block;
+  font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 25px;
+color: #8699CA;
+margin-bottom: 10px;
+word-break: keep-all;
+}
+footer div{
+  display: flex;
+  justify-content: space-around;
+  margin: 0 60px;
+}
+footer div img{
+  position: absolute;
+width: 90px;
+height: 29px;
+bottom: 30px;
+}
+footer div p{
+  position: absolute;
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 18px;
+bottom: 30px;
+color: #757575;
+cursor: pointer;
+}
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 91vh;
+  background-color: #0f0c13;
+}
+
+  @media screen and (max-width:500px){
+    .Join{
+      transform: translate(-50%,-60px);
+    }
+  }

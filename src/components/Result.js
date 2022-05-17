@@ -18,8 +18,9 @@ const POPWRAP = styled.div`
 position: absolute;
 width: 324px;
 height: 326px;
-left: 33px;
-top: 53px;
+left: 50%;
+top:50%;
+transform:translate(-50%,-50%);
 
 background: #0F0C13;
 border: 15px solid #201651;
@@ -33,7 +34,7 @@ width: 207px;
 height: 57px;
 left:50%;
 transform:translateX(-50%);
-top:140px;
+top:110px;
 
 background: rgba(39, 18, 143, 0.39);
 border: 2px solid #6D8487;
@@ -44,7 +45,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 24px;
 line-height: 28px;
-
+text-align:center;
 color: #B9B9B9;
 `
 const TITLE = styled.div`
@@ -52,7 +53,7 @@ position: absolute;
 width: 195px;
 height: 55px;
 left:50%;
-transform:translateX(-50%);
+transform:translate(-50%,-50%);
 
 
 background: #201651;
@@ -79,7 +80,7 @@ const Btn = styled.p`{
     width: 156px;
     height: 18px;
     left: 117px;
-    top: 322px;
+    top:62%;
     
     font-family: 'Do Hyeon';
     font-style: normal;
@@ -87,7 +88,7 @@ const Btn = styled.p`{
     font-size: 28px;
     line-height: 35px;
     text-align: center;
-    
+    cursor: pointer;
     color: #53A6C8;
 }
 `
@@ -128,7 +129,6 @@ width: 324px;
 height: 270px;
 left: 33px;
 top: 304px;
-
 background: #0F0C13;
 border: 15px solid #201651;
 border-radius: 20px;
@@ -141,7 +141,7 @@ width: 200px;
 height: 18px;
 left: 50%;
 transform:translateX(-50%);
-top:100px;
+top:60px;
 p{
     font-family: 'Do Hyeon';
 font-style: normal;
@@ -171,7 +171,7 @@ width: 200px;
 height: 18px;
 left: 50%;
 transform:translateX(-50%);
-top:150px;
+top:120px;
 p{
     font-family: 'Do Hyeon';
 font-style: normal;
@@ -201,7 +201,7 @@ width: 200px;
 height: 18px;
 left: 50%;
 transform:translateX(-50%);
-top:200px;
+top:180px;
 
 p{
     font-family: 'Do Hyeon';
@@ -231,8 +231,8 @@ position: absolute;
 width: 195px;
 height: 55px;
 left: 97px;
-top: 650px;
-
+bottom:20px;
+cursor: pointer;
 background: #201651;
 border: 1px solid rgba(0, 0, 0, 0.5);
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
