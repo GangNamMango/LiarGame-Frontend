@@ -101,17 +101,24 @@ font-weight: 400;
 font-size: 80px;
 line-height: 116px;
 text-align: center;
-
 color: #53A6C8;
+@media screen and (max-width:500px){
+    line-height: 60px;
+}
 `
 const ImgArea = styled.div`
 margin:0 auto;
 width: 250px;
 height: 250px;
-left: 70px;
-top: 307px;
+position:absolute;
+top: 50%;
+left:50%;
+transform:translate(-50%,-50%);
 img{
     width:100%;
+}
+@media screen and (max-width:500px){
+
 }
 `
 const ResultImgView = styled.div`
