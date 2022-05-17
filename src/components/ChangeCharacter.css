@@ -151,12 +151,7 @@
     text-align: center;
     color: #54b5c2;
   }
-  .Btn ul li:first-child {
-    margin-top: 50px;
-  }
-  .Btn ul li:last-child {
-    margin-top: 35px;
-  }
+
   .Blue {
     color: #54b5c2;
     font-family: "Roboto";

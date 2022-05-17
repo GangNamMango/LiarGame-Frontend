@@ -240,7 +240,7 @@ color: #53A6C8;
 }
 .Service {
   position: absolute;
-  top: 10%;
+  top: 11%;
   left: 50%;
   transform: translateX(-50%);
   width: 324px;
@@ -260,7 +260,6 @@ line-height: 35px;
 text-align: center;
 color: #53A6C8;
 margin-bottom: 30px;
-
 }
 .Service div a{
   display: block;
@@ -305,5 +304,11 @@ cursor: pointer;
   @media screen and (max-width:500px){
     .Join{
       transform: translate(-50%,-60px);
+    }
+    .Btn ul li:first-child {
+      margin-top: 30px;
+    }
+    .Btn ul li:last-child {
+      margin-top: 30px;
     }
   }
