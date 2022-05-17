@@ -184,7 +184,7 @@ const Hide = () => {
   }, [seconds])
     return (
         <Wrap>
-          {Rooms.data.gameRoom.gameStatus == "VOTE" ? <Vote/> : <><Timer>
+          {Rooms.data.gameRoom.gameStatus != "VOTE" ? <><Timer>
           {seconds}
           </Timer>
           <Subject>
@@ -206,7 +206,7 @@ const Hide = () => {
             <p>입니다</p>
           </BackCardSection>
           }
-          </CardArea></>}
+          </CardArea></> : <Vote/>}
         </Wrap>
 
     )

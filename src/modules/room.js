@@ -33,6 +33,10 @@ const VOTE = "VOTE";
 const VOTE_SUCCESS = "VOTE_SUCCESS";
 const VOTE_ERROR = "VOTE_ERROR";
 
+const RESULT = "RESULT";
+const RESULT_SUCCESS = "RESULT_SUCCESS";
+const RESULT_ERROR = "RESULT_ERROR";
+
 export const postMakeRoom =
   (nickName, getImg) =>
   async (dispatch, getState, { history }) => {
@@ -145,6 +149,20 @@ export const updateUsers =
         dispatch({ type: VOTE_ERROR, error: e});
       }
     };
+    export const result =
+    (result)=>
+    async(dispatch,getState,{history}) =>{
+      dispatch({type: RESULT});
+      try{
+        dispatch({
+          type:RESULT_SUCCESS,
+          room:result,
+        });
+        history.push(`/result`);
+      }catch(e){
+        dispatch({ type: RESULT_ERROR, error: e});
+      }
+    }
 
 
 const initialState = {
@@ -347,6 +365,11 @@ export default function room(state = initialState, action) {
             gameRoom: {
               ...state.data.gameRoom,
               gameStatus: action.room.gameStatus,
+              VoteSet: {
+                ...state.data.gameRoom.VoteSet,
+                maxVoteCount: action.room.maxVoteCount,
+                currentVoteCount : action.room.currentVoteCount,
+              }
             }
           },
           error: null,
@@ -386,6 +409,42 @@ export default function room(state = initialState, action) {
             error: null,
           };
       case VOTE_ERROR:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+      };
+      case RESULT:
+        return {
+          ...state,
+  
+          isLoading: true,
+          error:null,
+        };
+        case RESULT_SUCCESS:
+          return{
+            ...state,
+            isLoading: false,
+            data: {
+              ...state.data,
+              gameRoom: {
+                ...state.data.gameRoom,
+                gameStatus: action.room.gameStatus,
+                ResultSet: {
+                  ...state.data.gameRoom.ResultSet,
+                  gameStatus: action.room.gameStatus,
+                  liarName: action.room.liarName,
+                  voteCount: action.room.voteCount,
+                  winner : action.room.winner,
+                  liarAnswer: action.room.liarAnswer,
+                }
+              }
+            },
+            error: null,
+          };
+      case RESULT_ERROR:
       return {
         ...state,
 

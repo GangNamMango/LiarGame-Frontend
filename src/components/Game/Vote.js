@@ -1,19 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Button from "../Button";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { vote } from "../../modules/room";
+import { result, vote } from "../../modules/room";
 import WaitVote from "./WaiteVote";
 
 const NickName =styled.p`
   color:#fff;
   text-align: center;
 `
+const Button = styled.button`
+  width: 195px;
+  height: 55px;
+  margin: 0 auto;
+
+  background: #201651;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+
+  font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 28px;
+line-height: 35px;
+text-align: center;
+
+color: #53A6C8;
+  color: #54b5c2;
+  & + & {
+    margin-top: 2rem;
+  }
+`;
 
 const Vote = () => {
     const [Array, setArray] = useState();
+    const [pop,setPop] = useState();
     const { Rooms } = useSelector((state) => ({
         Rooms: state.room,
     }));
@@ -36,6 +58,12 @@ const Vote = () => {
                 let data = JSON.parse(body.body);  
                 dispatch(vote(data.data));
             });
+            stomp.subscribe(`/sub/game/result/${Rooms.data.gameRoom.roomId}`, (body)=>{
+              let data = JSON.parse(body.body); 
+              if(Rooms.data.gameRoom.VoteSet.maxVoteCount == Rooms.data.gameRoom.VoteSet.currentVoteCount){
+              dispatch(result(data.data)); 
+              }
+          });
 
             }
             )}
@@ -51,20 +79,21 @@ const Vote = () => {
           })
         );
       }
-      const OnClickVote = () => {
-        sendVote();
-        console.log(Rooms.data.gameRoom.users[Array].nickname);
-      }
+      
       const changArray= (i) => {
         setArray(i);
         console.log(i);
-        console.log(Rooms.data.gameRoom.VoteSet.notCompleted);
       };
+      const changePop = (e) => {
+        sendVote();
+        setPop(e);
+        console.log(Rooms.data);
+        
+      }
 
     return(
-        <>  
-        {Rooms.data.gameRoom.VoteSet == "" ? <WaitVote/> :
-                <div className= "Cha_select">
+        <>
+        {pop == 'voted' ? <WaitVote/> :  <div className= "Cha_select">
         <div className="title">라이어 선택</div>
         <div className="img_select">
             {
@@ -81,10 +110,10 @@ const Vote = () => {
                 </li>
                 </ul>
             ))}
-            <Button value="선택" OnClick={OnClickVote}/>
+            <Button onClick={() => changePop('voted')}>선택</Button>
         </div>
-        </div>
-}
+        </div> }
+        
         </>
     )
 }

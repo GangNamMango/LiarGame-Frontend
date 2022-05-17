@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "../Button";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { vote } from "../../modules/room";
+import { result, vote } from "../../modules/room";
 
 const Wrap = styled.div`
 position: relative;
@@ -71,31 +71,52 @@ const WaitVote = () => {
     const { Rooms } = useSelector((state) => ({
         Rooms: state.room,
     }));
+    //socket 연결
+    const sock = new SockJs("http://3.35.178.104/socket");
+
+    //stomp 연결
+    const stomp = StompJs.over(sock);
+
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        stompConnect();
+      }, []);
+
+    function stompConnect() {
+        stomp.connect({}, () => {
+  
+          stomp.subscribe(`/sub/game/vote/${Rooms.data.gameRoom.roomId}`, (body)=>{
+            let data = JSON.parse(body.body);  
+            dispatch(vote(data.data));
+        });
+        stomp.subscribe(`/sub/game/result/${Rooms.data.gameRoom.roomId}`, (body)=>{
+          let data = JSON.parse(body.body); 
+          if(Rooms.data.gameRoom.VoteSet.maxVoteCount == Rooms.data.gameRoom.VoteSet.currentVoteCount){
+          dispatch(result(data.data)); 
+          }
+      });
+    }
+    )}
+
+
+        const [current, setCurrent] = useState();
+        const [max, setMax] = useState(Rooms.data.gameRoom.users.length);
     
-        //socket 연결
-        const sock = new SockJs("http://3.35.178.104/socket");
-
-        //stomp 연결
-        const stomp = StompJs.over(sock);
-    
-        const dispatch = useDispatch();
-        React.useEffect(() => {
-            stompConnect();
-          }, []);
-
-        function stompConnect() {
-            stomp.connect({}, () => {
-
-
-            }
-            )}
+        const check = () => {
+            console.log(Rooms.data.gameRoom.gameStatus);
+            if(current == 0) return '1';
+            else return Rooms.data.gameRoom.VoteSet.currentVoteCount;
+            
+        }
+        
+        
 
 
     return(
         <Wrap>
             <Title>투표 완료</Title>
             <NumWrap>
-            <NUM>{Rooms.data.gameRoom.VoteSet.currentVoteCount}</NUM><NUM>/</NUM><NUM>{Rooms.data.gameRoom.VoteSet.maxVoteCount}</NUM>
+            <NUM>{check()}</NUM><NUM>/</NUM><NUM>{max}</NUM>
             </NumWrap>
             <ImgArea>
             <img src={'/img/LogoDot.png'} />
