@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ import { characterpop } from "../modules/character";
 import Change from "./ChageCharacter";
 import Button2 from "./Button2";
 import {CgCrown } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Wrap = styled.div`
   position: relative;
@@ -264,6 +264,22 @@ const WaitingRoomContainer = () => {
   const OnClickStartGame = () => {
     StartGame();
   }
+  const history = useHistory();
+
+  useEffect(() => {
+    let unlisten = history.listen((location) => {
+      if (history.action === 'PUSH') {
+        sendLeave();
+      }
+      if (history.action === 'POP') {
+        sendLeave()
+      }
+    });
+
+    return () => {
+      unlisten();
+    };
+  }, [history]);
 
 
   return (

@@ -6,6 +6,7 @@ import StompJs from "stompjs";
 import { countDown, vote } from "../../modules/room";
 import Button from "../Button";
 import Vote from "./Vote";
+import { useHistory } from "react-router-dom";
 
 const Flip = keyframes`
 0%{
@@ -170,6 +171,24 @@ const Hide = () => {
       }
       )}
 
+      function disconnect() {
+        stomp.disconnect(() => {
+          console.log("socket연결 해제");
+        });
+      }
+
+      function sendLeave() {
+        stomp.send(
+          `/pub/game/leave`,
+          {},
+          JSON.stringify({
+            roomId: Rooms.data.gameRoom.roomId,
+            userId: Rooms.data.userId,
+          })
+        );
+        disconnect();
+      }
+
       function sendVote() {
         stomp.send(
           "/pub/game/vote",
@@ -184,6 +203,25 @@ const Hide = () => {
         sendVote();
         console.log(Rooms.data);
       }
+
+      const history = useHistory();
+
+      useEffect(() => {
+        let unlisten = history.listen((location) => {
+          if (history.action === 'PUSH') {
+            sendLeave();
+            history.push('/');
+          }
+          if (history.action === 'POP') {
+            history.push('/');
+            sendLeave();
+          }
+        });
+    
+        return () => {
+          unlisten();
+        };
+      }, [history]);
 
   useEffect(()=>{
     const countdown = setInterval(()=>{

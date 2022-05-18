@@ -82,14 +82,14 @@ color: #53A6C8;
             <p>
                방 만들기 버튼을 클릭하세요
             </p>
-                <img className="makeRoomBtn" src="/img/방만들기 버튼.png"/>
+                <img className="makeRoomBtn" src="/img/makeRoom.png"/>
           </div>
           <div className="DoHyeon">
           <span>2</span>
             <p>
                대기실의 설정 아이콘을 클릭하세요
             </p>
-            <img className="SettingBtn" src="/img/설정 버튼 png.png"/>
+            <img className="SettingBtn" src="/img/Set.png"/>
           </div>
           <div className="DoHyeon">
           <span>3</span>
@@ -97,7 +97,7 @@ color: #53A6C8;
             <p>
                게임 주제와 시간을 바꿔보세요
             </p>
-            <img className="WaitPop" src="/img/대기실 팝업 png.png"/>
+            <img className="WaitPop" src="/img/Pop.png"/>
             <div><Button onClick={() => setHtr(!htr)}>확인</Button></div>
           </div>
           </div>
@@ -116,7 +116,7 @@ color: #53A6C8;
             <p>
               참여하기 버튼을 클릭하세요
             </p>
-            <img className="makeRoomBtn" src="/img/참여하기 버튼 png.png"/>
+            <img className="makeRoomBtn" src="/img/Enter.png"/>
           </div>
           <div className="DoHyeon">
           <span>3</span>
@@ -124,7 +124,7 @@ color: #53A6C8;
             <p>
               대기실에서 받은 방코드를 입력하세요
             </p>
-            <img className="CodePop" src="/img/참여하기 팝업 png.png"/>
+            <img className="CodePop" src="/img/EnterPop.png"/>
             <div><Button onClick={() => setHtj(!htj)}>확인</Button></div>
             </div>
           </div>
