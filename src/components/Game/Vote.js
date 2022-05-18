@@ -5,6 +5,7 @@ import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 import { result, vote } from "../../modules/room";
 import WaitVote from "./WaiteVote";
+import { useHistory } from "react-router-dom";
 
 const NickName =styled.p`
   color:#fff;
@@ -79,6 +80,22 @@ const Vote = () => {
           })
         );
       }
+      function disconnect() {
+        stomp.disconnect(() => {
+          console.log("socket연결 해제");
+        });
+      }
+      function sendLeave() {
+        stomp.send(
+          `/pub/game/leave`,
+          {},
+          JSON.stringify({
+            roomId: Rooms.data.gameRoom.roomId,
+            userId: Rooms.data.userId,
+          })
+        );
+        disconnect();
+      }
       
       const changArray= (i) => {
         setArray(i);
@@ -90,6 +107,21 @@ const Vote = () => {
         console.log(Rooms.data);
         
       }
+      const history = useHistory();
+      useEffect(() => {
+        let unlisten = history.listen((location) => {
+          if (history.action === 'PUSH') {
+          }
+          if (history.action === 'POP') {
+            history.push('/');
+            sendLeave();
+          }
+        });
+    
+        return () => {
+          unlisten();
+        };
+      }, [history]);
 
     return(
         <>

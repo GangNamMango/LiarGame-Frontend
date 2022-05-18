@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../Button";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 import { result, vote } from "../../modules/room";
+import { useHistory } from "react-router-dom";
 
 const Wrap = styled.div`
 position: relative;
@@ -111,6 +112,22 @@ const WaitVote = () => {
       });
     }
     )}
+    function disconnect() {
+        stomp.disconnect(() => {
+          console.log("socket연결 해제");
+        });
+      }
+    function sendLeave() {
+        stomp.send(
+          `/pub/game/leave`,
+          {},
+          JSON.stringify({
+            roomId: Rooms.data.gameRoom.roomId,
+            userId: Rooms.data.userId,
+          })
+        );
+        disconnect();
+      }
 
 
         const [current, setCurrent] = useState();
@@ -122,7 +139,22 @@ const WaitVote = () => {
             else return Rooms.data.gameRoom.VoteSet.currentVoteCount;
             
         }
+        const history = useHistory();
         
+        useEffect(() => {
+            let unlisten = history.listen((location) => {
+              if (history.action === 'PUSH') {
+              }
+              if (history.action === 'POP') {
+                history.push('/');
+                sendLeave();
+              }
+            });
+        
+            return () => {
+              unlisten();
+            };
+          }, [history]);
         
 
 

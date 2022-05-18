@@ -209,8 +209,6 @@ const Hide = () => {
       useEffect(() => {
         let unlisten = history.listen((location) => {
           if (history.action === 'PUSH') {
-            sendLeave();
-            history.push('/');
           }
           if (history.action === 'POP') {
             history.push('/');

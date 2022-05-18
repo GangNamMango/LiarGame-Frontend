@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
@@ -337,6 +337,39 @@ const Result = () => {
         console.log(choice);
       }
 
+      function disconnect() {
+        stomp.disconnect(() => {
+          console.log("socket연결 해제");
+        });
+      }
+
+      function sendLeave() {
+        stomp.send(
+          `/pub/game/leave`,
+          {},
+          JSON.stringify({
+            roomId: Rooms.data.gameRoom.roomId,
+            userId: Rooms.data.userId,
+          })
+        );
+        disconnect();
+      }
+      const history = useHistory();
+      useEffect(() => {
+        let unlisten = history.listen((location) => {
+          if (history.action === 'PUSH') {
+          }
+          if (history.action === 'POP') {
+            history.push('/');
+            sendLeave();
+          }
+        });
+    
+        return () => {
+          unlisten();
+        };
+      }, [history]);
+
 
     const checkResult = () =>{
         if(Rooms.data.gameRoom.gameStatus == 'CHOICE' && Rooms.data.userId == Rooms.data.gameRoom.gameSet.liarId) return 'CHOICE_Liar'
@@ -348,7 +381,7 @@ const Result = () => {
     }
     return (
         <>
-        {Rooms.data.gameRoom.gameStatus == 'CHOICE' && loading == false ? <CatchLiarLoadingPage/> :checkResult() == 'CHOICE_Liar' ? <Wrap><POPWRAP><TITLE><p>제시어 입력</p></TITLE><INPUT value={choice} onChange={onChangeChoice}></INPUT></POPWRAP><Btn onClick={()=>OnClickChoice()}>입력하기</Btn></Wrap> : checkResult() == 'CHOICE_Player' ? <Wrap><P>라이어가<br/>제시어를 고릅니다</P><ImgArea><img src="/img/LogoDot.png"/><img src="/img/GameName.png"/></ImgArea></Wrap> : checkResult() == 'END_Liar_Win' ? <Wrap><ResultImgView><img src="/img/Win.png"/></ResultImgView><ResultWrap><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>제시어</p><p>{Rooms.data.gameRoom.gameSet.word}</p></ViewWord></ResultWrap><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap>:checkResult() == 'END_Player_Lose' ? <Wrap><ResultImgView><img src="/img/Lose.png"/></ResultImgView><ResultWrap><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>제시어</p><p>{Rooms.data.gameRoom.gameSet.word}</p></ViewWord></ResultWrap><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap> : checkResult() == 'END_Member_Win' ? <Wrap><ResultImgView><img src="/img/Lose.png"/></ResultImgView><ResultWrap2><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>제시어</p><p>{Rooms.data.gameRoom.gameSet.word}</p></ViewWord><LiarChoiceWord><p>라이어의 답</p><p>{Rooms.data.gameRoom.ResultSet.liarAnswer}</p></LiarChoiceWord></ResultWrap2><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap> : checkResult() == 'END_Members_Win' ? <Wrap><ResultImgView><img src="/img/Win.png"/></ResultImgView><ResultWrap><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>라이어의 답</p><p>{Rooms.data.gameRoom.ResultSet.liarAnswer}</p></ViewWord></ResultWrap><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap> : ""}
+        {Rooms.data.gameRoom.gameStatus == 'CHOICE' && loading == false ? <CatchLiarLoadingPage/> :checkResult() == 'CHOICE_Liar' ? <Wrap><POPWRAP><TITLE><p>제시어 입력</p></TITLE><INPUT value={choice} onChange={onChangeChoice}></INPUT></POPWRAP><Btn onClick={()=>OnClickChoice()}>입력하기</Btn></Wrap> : checkResult() == 'CHOICE_Player' ? <Wrap><P>라이어가<br/>제시어를 고릅니다</P><ImgArea><img src="/img/LogoDot.png"/><img src="/img/GameName.png"/></ImgArea></Wrap> : checkResult() == 'END_Liar_Win' ? <Wrap><ResultImgView><img src="/img/Win.png"/></ResultImgView><ResultWrap><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>제시어</p><p>{Rooms.data.gameRoom.gameSet.word}</p></ViewWord></ResultWrap><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap>:checkResult() == 'END_Player_Lose' ? <Wrap><ResultImgView><img src="/img/Lose.png"/></ResultImgView><ResultWrap><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>제시어</p><p>{Rooms.data.gameRoom.gameSet.word}</p></ViewWord></ResultWrap><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap> : checkResult() == 'END_Member_Win' ? <Wrap><ResultImgView><img src="/img/Lose.png"/></ResultImgView><ResultWrap2><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>제시어</p><p>{Rooms.data.gameRoom.gameSet.word}</p></ViewWord><LiarChoiceWord><p>라이어의 답</p><p>{Rooms.data.gameRoom.ResultSet.liarAnswer}</p></LiarChoiceWord></ResultWrap2><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap> : checkResult() == 'END_Members_Win' ? <Wrap><ResultImgView><img src="/img/Win.png"/></ResultImgView><ResultWrap2><TITLE><p>결과</p></TITLE><ViewLiar><p>라이어</p><p>{Rooms.data.gameRoom.ResultSet.liarName}</p></ViewLiar><ViewWord><p>제시어</p><p>{Rooms.data.gameRoom.gameSet.word}</p></ViewWord><LiarChoiceWord><p>라이어의 답</p><p>{Rooms.data.gameRoom.ResultSet.liarAnswer}</p></LiarChoiceWord></ResultWrap2><ToMain><Link to='/'><p>메인으로</p></Link></ToMain></Wrap> : ""}
         </>
     )
 }

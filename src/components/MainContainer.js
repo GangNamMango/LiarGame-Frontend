@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MainContainer.css";
 import CharaterImg from "../data/character";
 import { useDispatch } from "react-redux";
@@ -8,11 +8,17 @@ const MainContainer = () => {
   const [nickName, setNickName] = useState("");
   const [open, setOpen] = useState(false);
   const [Join, setJoin] = useState(false);
-  const [getImg, setGetImg] = useState(4207576);
+  const [getImg, setGetImg] = useState();
   const [roomId, setRoomId] = useState("");
   const [service,setService] = useState(false)
 
   const dispatch = useDispatch();
+  const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
+  useEffect(()=>{
+    setGetImg(getRandom(1,11));
+    console.log(getImg);
+    return getImg;
+  }, []);
 
   const changeImg = (i) => {
     setGetImg(i);
@@ -44,6 +50,9 @@ const MainContainer = () => {
     }
     else{dispatch(postEnterRoom(roomId, nickName, getImg));}
   };
+
+
+
   return (
     <div className="Wrap">
       <div className="Container">

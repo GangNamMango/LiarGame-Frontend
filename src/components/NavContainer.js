@@ -20,12 +20,22 @@ color: #53A6C8;
     color: #54b5c2;
     transition: none;
   `;
+  const OnclickPop =() => {
+    if(popup == false)
+    setPopup(!popup);
+    if(popup == true){
+    setPopup(!popup)
+    setGame(false);
+    setHtj(false);
+    setHtr(false);
+    }
+  }
   return (
     <div className="Nav_area">
       <div
         className={popup ? "Nav_close" : "Nav_open"}
         popup={popup}
-        onClick={() => setPopup(!popup)}
+        onClick={() => OnclickPop()}
       >
         <span></span>
         <span></span>

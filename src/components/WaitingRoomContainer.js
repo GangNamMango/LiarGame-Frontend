@@ -269,7 +269,6 @@ const WaitingRoomContainer = () => {
   useEffect(() => {
     let unlisten = history.listen((location) => {
       if (history.action === 'PUSH') {
-        sendLeave();
       }
       if (history.action === 'POP') {
         sendLeave()
