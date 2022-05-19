@@ -286,10 +286,14 @@ const Result = () => {
         const stomp = StompJs.over(sock);
 
         const dispatch = useDispatch();
+        const [choice, setChoice] = useState("");
 
+        
+
+        
         React.useEffect(() => {
-            stompConnect();
-        }, []);
+          stompConnect();
+      }, []);
 
         function stompConnect() {
             stomp.connect({}, () => {
@@ -315,7 +319,7 @@ const Result = () => {
           });
         }
         )}
-        const [choice, setChoice] = useState("");
+
 
     function Choice() {
         stomp.send(
@@ -328,14 +332,7 @@ const Result = () => {
           })
         );
       }
-      const onChangeChoice = (e) => {
-        setChoice(e.target.value);
-      };
 
-      const OnClickChoice = () => {
-        Choice();
-        console.log(choice);
-      }
 
       function disconnect() {
         stomp.disconnect(() => {
@@ -354,8 +351,25 @@ const Result = () => {
         );
         disconnect();
       }
+
+
+      const onChangeChoice = (e) => {
+        setChoice(e.target.value);
+      };
+
+      const OnClickChoice = () => {
+        Choice();
+        console.log(choice);
+      };
+
       const history = useHistory();
+
       useEffect(() => {
+        window.addEventListener('beforeunload', (event) => {
+          event.preventDefault();
+      
+          event.returnValue = sendLeave();
+        })
         let unlisten = history.listen((location) => {
           if (history.action === 'PUSH') {
           }

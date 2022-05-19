@@ -142,6 +142,11 @@ const WaitVote = () => {
         const history = useHistory();
         
         useEffect(() => {
+          window.addEventListener('beforeunload', (event) => {
+            event.preventDefault();
+        
+            event.returnValue = sendLeave();
+          })
             let unlisten = history.listen((location) => {
               if (history.action === 'PUSH') {
               }

@@ -14,6 +14,7 @@ import Change from "./ChageCharacter";
 import Button2 from "./Button2";
 import {CgCrown } from "react-icons/cg";
 import { Link, useHistory } from "react-router-dom";
+import { event } from "react-ga";
 
 const Wrap = styled.div`
   position: relative;
@@ -264,9 +265,15 @@ const WaitingRoomContainer = () => {
   const OnClickStartGame = () => {
     StartGame();
   }
+
   const history = useHistory();
 
   useEffect(() => {
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+  
+      event.returnValue = sendLeave();
+    })
     let unlisten = history.listen((location) => {
       if (history.action === 'PUSH') {
       }
