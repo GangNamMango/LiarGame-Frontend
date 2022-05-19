@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/LiarGame-Frontend/static/css/main.dc8c48d3.css",
+    "main.js": "/LiarGame-Frontend/static/js/main.3567ac33.js",
+    "static/js/787.9368e715.chunk.js": "/LiarGame-Frontend/static/js/787.9368e715.chunk.js",
+    "index.html": "/LiarGame-Frontend/index.html",
+    "main.dc8c48d3.css.map": "/LiarGame-Frontend/static/css/main.dc8c48d3.css.map",
+    "main.3567ac33.js.map": "/LiarGame-Frontend/static/js/main.3567ac33.js.map",
+    "787.9368e715.chunk.js.map": "/LiarGame-Frontend/static/js/787.9368e715.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dc8c48d3.css",
+    "static/js/main.3567ac33.js"
+  ]
+}
