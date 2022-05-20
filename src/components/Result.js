@@ -266,6 +266,10 @@ top: 281px;
 background: #0F0C13;
 border: 15px solid #201651;
 border-radius: 20px;
+
+@media screen and (max-width:500px){
+  height:270px;
+}
 `
 
 const Result = () => {
@@ -273,6 +277,10 @@ const Result = () => {
         Rooms: state.room,
     })); 
     const [loading, setLoading] = useState(false)
+
+    React.useEffect(() => {
+      stompConnect();
+  }, []);
     setTimeout(()=>{
         setLoading(true);
         console.log(loading);
@@ -291,9 +299,7 @@ const Result = () => {
         
 
         
-        React.useEffect(() => {
-          stompConnect();
-      }, []);
+
 
         function stompConnect() {
             stomp.connect({}, () => {
@@ -313,7 +319,7 @@ const Result = () => {
       
             stomp.subscribe(`/sub/game/result/${Rooms.data.gameRoom.roomId}`, (body)=>{
               let data = JSON.parse(body.body); 
-              if(Rooms.data.gameRoom.VoteSet.maxVoteCount == Rooms.data.gameRoom.VoteSet.currentVoteCount){
+              {
               dispatch(result(data.data)); 
               }
           });

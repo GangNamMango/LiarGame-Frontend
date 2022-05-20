@@ -51,12 +51,17 @@ const MainContainer = () => {
     else{dispatch(postEnterRoom(roomId, nickName, getImg));}
   };
 
-
+  const close = () => {
+    if(service == true)
+    setService(false);
+  }
 
   return (
     <div className="Wrap">
-      <div className="Container">
+      <div className="Container" onClick={()=> close()}>
+        <p className="Text">클릭하여 캐릭터 변경</p>
         <div className="Img_area" open={open} onClick={() => setOpen(!open)}>
+          
           <img src={"/img/character-" + getImg + ".png"} />
         </div>
         <div className={Join ? "Join" : "hidden"}>
@@ -99,10 +104,11 @@ const MainContainer = () => {
               ))}
           </div>
         </div>
+        
         <div className={service ? "Service" : "hidden"}>
         <div className="title">서비스 약관</div>
           <div>
-            <a href="[https://www.flaticon.com/kr/free-icons/](https://www.flaticon.com/kr/free-icons/)" title="미친 아이콘">미친 아이콘 제작자: Freepik - Flaticon</a>
+          <a href="https://www.flaticon.com/kr/free-icons/" title="미친 아이콘">미친 아이콘  제작자: Freepik - Flaticon</a>
 
 <a href="[https://www.flaticon.com/kr/free-icons/](https://www.flaticon.com/kr/free-icons/)" title="사람들 아이콘">사람들 아이콘 제작자: Freepik - Flaticon</a>
 

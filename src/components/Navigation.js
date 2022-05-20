@@ -29,6 +29,18 @@ const Menu = styled.div`
     height: 3em;
     cursor: pointer;
   }
+  p{
+    position:absolute;
+    width:100px;
+    font-family: 'Gugi';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+top:55px;
+left:-20px;
+color: #53A6C8;
+  }
 `;
 
 const Navigation = ({ CharacterPop,PopUp, OnclickPopUp, sendLeave, OnclickCharacter}) => {
@@ -47,6 +59,7 @@ const Navigation = ({ CharacterPop,PopUp, OnclickPopUp, sendLeave, OnclickCharac
       </Link>
       <Menu className={PopUp ? "hidden" : ""} onClick={onToggle2}>
         <CgProfile className="icon" />
+        <p>캐릭터 설정</p>
       </Menu>
       <Menu className={CharacterPop ? "hidden" : ""} onClick={onToggle}>
         <HiCog className="icon" />

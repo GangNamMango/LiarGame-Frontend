@@ -1,17 +1,17 @@
 
-  .Cha_select_c {
+  .Cha_select_v {
     position: absolute;
-    top: 12%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%,-50%);
     width: 324px;
-    height: 70vh;
+    height: 55vh;
     background: #0f0c13;
     border: 15px solid #201651;
     border-radius: 20px;
     z-index: 100;
   }
-  .Cha_select_c .title {
+  .Cha_select_v .title {
     position: absolute;
     width: 195px;
     height: 55px;
@@ -28,14 +28,14 @@
     font-size: 26px;
     color: #54b5c2;
   }
-  .Cha_select_c .select_btn {
+  .Cha_select_v .select_btn {
     position: absolute;
     left: 50%;
     bottom: 10%;
     transform: translateX(-50%);
     z-index: 100;
   }
-.Cha_select_c .select_btn span {
+.Cha_select_v .select_btn span {
     font-family: "Roboto";
     font-style: normal;
     font-weight: 300;
@@ -44,8 +44,8 @@
     text-align: center;
     color: #54b5c2;
   }
-.Cha_select_c .img_select {
-    height: 60vh;
+.Cha_select_v .img_select {
+    height: 50vh;
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
@@ -67,7 +67,7 @@
     border: 4px solid #54b5c2;
   }
   
-  .Cha_select_c .img_select ul li input {
+  .Cha_select_v .img_select ul li input {
     width: 100%;
     height: 100%;
     

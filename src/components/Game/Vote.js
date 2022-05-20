@@ -6,6 +6,8 @@ import StompJs from "stompjs";
 import { result, vote } from "../../modules/room";
 import WaitVote from "./WaiteVote";
 import { useHistory } from "react-router-dom";
+import "./Vote.css";
+import Result from "../Result";
 
 const NickName =styled.p`
   color:#fff;
@@ -19,7 +21,7 @@ const Button = styled.button`
   background: #201651;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 20px;
-  transform: translateY(140px);
+  margin-top:30px;
   font-family: 'Do Hyeon';
 font-style: normal;
 font-weight: 400;
@@ -104,6 +106,7 @@ const Vote = () => {
       const changePop = (e) => {
         sendVote();
         setPop(e);
+        history.push('/result');
         console.log(Rooms.data);
         
       }
@@ -130,7 +133,7 @@ const Vote = () => {
 
     return(
         <>
-        {pop == 'voted' ? <WaitVote/> :  <div className= "Cha_select">
+        {pop == 'voted'&& Rooms.data.gameRoom.VoteSet.maxVoteCount != Rooms.data.gameRoom.VoteSet.currentVoteCount ? <WaitVote/> : pop == 'voted' && Rooms.data.gameRoom.VoteSet.maxVoteCount == Rooms.data.gameRoom.VoteSet.currentVoteCount ? <Result/> :  <div className= "Cha_select_v">
         <div className="title">라이어 선택</div>
         <div className="img_select">
             {

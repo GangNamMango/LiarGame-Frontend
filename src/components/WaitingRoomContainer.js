@@ -28,14 +28,14 @@ const Wrap = styled.div`
 const RoomInfo = styled.div`
   display: flex;
   height: 30px;
-  margin: 0 20px 90px 20px;
+  margin: 0 20px 40px 20px;
   justify-content:space-around;
   .text{
     font-family: 'Do Hyeon';
 font-style: normal;
 font-weight: 400;
 font-size: 32px;
-line-height: 69px;
+line-height: 80.5px;
 text-align: center;
 
 color: #53A6C8;
@@ -49,7 +49,20 @@ color: #53A6C8;
     text-align: center;
     color: #53A6C8;
   }
+
 `;
+const RoomSubInfo = styled.div`
+margin-bottom:50px;
+p{
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+text-align: center;
+
+color: #757575;
+}
+`
 
 const Content = styled.div`
   width: 100%;
@@ -314,6 +327,9 @@ const WaitingRoomContainer = () => {
               )}
             </span>
           </RoomInfo>
+          <RoomSubInfo>
+          <p>원활한 플레이는 3명부터 가능합니다</p>
+          </RoomSubInfo>
           <Content>
             {Rooms.isLoading || Rooms.error ? (
               <></>

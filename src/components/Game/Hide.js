@@ -89,6 +89,7 @@ img+img{
 }
 @media screen and (max-width:500px){
   top:10px;
+  height:430px;
 }
 `
 const BackCardSection = styled.div`
@@ -135,6 +136,7 @@ color: #53A6C8;
   }
   @media screen and (max-width:500px){
     top:10px;
+    height:430px;
   }
 `
 const NickName =styled.p`
