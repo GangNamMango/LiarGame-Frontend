@@ -7,7 +7,7 @@ import { result, vote } from "../../modules/room";
 import WaitVote from "./WaiteVote";
 import { useHistory } from "react-router-dom";
 import "./Vote.css";
-import Result from "../Result";
+import ResultPage from "../../pages/ResultPage";
 
 const NickName =styled.p`
   color:#fff;
@@ -106,9 +106,7 @@ const Vote = () => {
       const changePop = (e) => {
         sendVote();
         setPop(e);
-        history.push('/result');
         console.log(Rooms.data);
-        
       }
       const history = useHistory();
       useEffect(() => {
@@ -133,7 +131,7 @@ const Vote = () => {
 
     return(
         <>
-        {pop == 'voted'&& Rooms.data.gameRoom.VoteSet.maxVoteCount != Rooms.data.gameRoom.VoteSet.currentVoteCount ? <WaitVote/> : pop == 'voted' && Rooms.data.gameRoom.VoteSet.maxVoteCount == Rooms.data.gameRoom.VoteSet.currentVoteCount ? <Result/> :  <div className= "Cha_select_v">
+        {Rooms.data.gameRoom.gameStatus == 'END' || Rooms.data.gameRoom.gameStatus == 'CHOICE' ? <ResultPage/> :pop == 'voted' ? <WaitVote/> : <div className= "Cha_select_v">
         <div className="title">라이어 선택</div>
         <div className="img_select">
             {

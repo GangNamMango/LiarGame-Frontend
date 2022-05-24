@@ -1,6 +1,7 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import GlobalStyle from "../GlobalStyles";
+import { keyframes } from "styled-components";
 
 const Wrap = styled.div`
   position: relative;
@@ -11,12 +12,19 @@ const Wrap = styled.div`
   margin: 0 auto;
 `;
 
+const ContentWrap = styled.div`
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+`
+
 const Text = styled.h1`
   text-align: center;
   font-size: 56px;
   line-height: 56px;
   color: #54b5c2;
-  padding: 40px 0;
+  padding: 20px 0;
 `;
 
 const boxFade = keyframes`
@@ -28,21 +36,25 @@ const boxFade = keyframes`
 const Loading = styled.img`
   display: block;
   width: 300px;
-  margin: 70px auto;
-  animation: ${boxFade} 3s linear infinite;
+  margin: 60px auto;
+  animation: ${boxFade} 1.5s linear infinite;
   transform-origin: 50% 50%;
 `;
 
 const CatchLiarLoadingPage = () => {
+
+
 
     
   return (
     <div>
       <GlobalStyle />
       <Wrap>
+        <ContentWrap>
         <Text>라이어를</Text>
         <Loading type="image" src="/img/Catch.png"></Loading>
         <Text>잡았다</Text>
+        </ContentWrap>
       </Wrap>
     </div>
   );

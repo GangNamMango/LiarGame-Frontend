@@ -1,7 +1,7 @@
 
   .Cha_select_c {
     position: absolute;
-    top: 12%;
+    top: 13%;
     left: 50%;
     transform: translateX(-50%);
     width: 324px;
@@ -91,4 +91,17 @@
     display: none;
   }
   
-
+  @media screen and (max-width:500px) {
+    .Cha_select_c {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 324px;
+      height: 70vh;
+      background: #0f0c13;
+      border: 15px solid #201651;
+      border-radius: 20px;
+      z-index: 100;
+    }
+  }

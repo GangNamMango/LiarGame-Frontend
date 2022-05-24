@@ -1,5 +1,4 @@
-import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import CharaterImg from "../data/character";
 import "./ChangeCharacter.css";
 
@@ -9,6 +8,7 @@ const Change = ({setCharacter}) => {
     const Change = (i) =>{
         setCharacter(i)
     }
+    
     return(
         <div className= "Cha_select_c">
         <div className="title">캐릭터 설정</div>
@@ -16,7 +16,7 @@ const Change = ({setCharacter}) => {
             {CharaterImg &&
             CharaterImg.map((item) => (
                 <ul className="img_ul">
-                <li >
+                <li>
                     <input
                     className="Checked"
                     type="image"

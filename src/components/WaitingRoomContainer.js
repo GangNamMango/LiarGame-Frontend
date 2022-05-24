@@ -13,8 +13,7 @@ import { characterpop } from "../modules/character";
 import Change from "./ChageCharacter";
 import Button2 from "./Button2";
 import {CgCrown } from "react-icons/cg";
-import { Link, useHistory } from "react-router-dom";
-import { event } from "react-ga";
+import { useHistory } from "react-router-dom";
 
 const Wrap = styled.div`
   position: relative;
@@ -62,11 +61,14 @@ text-align: center;
 
 color: #757575;
 }
+@media screen and (max-width:500px){
+  margin-bottom:30px;
+}
 `
 
 const Content = styled.div`
   width: 100%;
-  height: 40vh;
+  height: 45.2vh;
   display: flex;
   padding: 0 5%;
   margin: 0 auto;
@@ -133,7 +135,7 @@ const WaitingRoomContainer = () => {
 
   React.useEffect(() => {
     stompConnect();
-  }, []);
+  },[]);
 
   function stompConnect() {
     stomp.connect({}, () => {

@@ -9,7 +9,7 @@ const Btn = styled.button`
   background: #201651;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 20px;
-  transform: translateY(550px);
+  transform: translateY(650px);
   font-family: 'Do Hyeon';
 font-style: normal;
 font-weight: 400;
@@ -25,7 +25,7 @@ cursor: pointer;
     margin-top: 2rem;
   }
   @media screen and (max-width:500px){
-    transform: translateY(450px);
+    transform: translateY(420px);
   }
 `;
 

@@ -65,7 +65,7 @@ const MainContainer = () => {
           <img src={"/img/character-" + getImg + ".png"} />
         </div>
         <div className={Join ? "Join" : "hidden"}>
-          <h1 className="title Blue_Gugi">방코드</h1>
+          <h2 className="title Blue_Gugi">방코드</h2>
           <input
             className="code_text"
             type="text"

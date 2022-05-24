@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "./NavContainer.css";
 const NavContainer = () => {
@@ -41,7 +40,7 @@ color: #53A6C8;
         <span></span>
         <span></span>
       </div>
-      <div><img className="GameLogo" src="/img/GameName.png"/></div>
+      <div><h1>라이어게임<img className="GameLogo" src="/img/GameName.png"/></h1></div>
       <div className={popup ? "bg" : ""}></div>
       <div className={popup ? "popup_area" : "hidden"}>
         <div className={game ? "block" : "none"}>

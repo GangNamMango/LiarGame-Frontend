@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Button from "../Button";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 import { result, vote } from "../../modules/room";
@@ -130,7 +129,7 @@ const WaitVote = () => {
       }
 
 
-        const [current, setCurrent] = useState();
+        const [current, setCurrent] = useState(0);
         const [max, setMax] = useState(Rooms.data.gameRoom.users.length);
     
         const check = () => {
