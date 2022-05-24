@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .Wrap_c {
     position: absolute;
     z-index: 999;
@@ -39,12 +40,26 @@
     transform: translateX(-50%);
     width: 324px;
     height: 85vh;
+=======
+
+  .Cha_select_c {
+    position: absolute;
+    top: 13%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 324px;
+    height: 70vh;
+>>>>>>> SW
     background: #0f0c13;
     border: 15px solid #201651;
     border-radius: 20px;
     z-index: 100;
   }
+<<<<<<< HEAD
   .Wrap_c .Container_c .Cha_select .title {
+=======
+  .Cha_select_c .title {
+>>>>>>> SW
     position: absolute;
     width: 195px;
     height: 55px;
@@ -55,20 +70,32 @@
     transform: translate(-50%, -56%);
     text-align: center;
     line-height: 55px;
+<<<<<<< HEAD
     font-family: "Roboto";
+=======
+    font-family: 'Gugi';
+>>>>>>> SW
     font-style: normal;
     font-weight: 400;
     font-size: 26px;
     color: #54b5c2;
   }
+<<<<<<< HEAD
   .Wrap_c .Container_c .Cha_select .select_btn {
+=======
+  .Cha_select_c .select_btn {
+>>>>>>> SW
     position: absolute;
     left: 50%;
     bottom: 10%;
     transform: translateX(-50%);
     z-index: 100;
   }
+<<<<<<< HEAD
   .Wrap_c .Container_c .Cha_select .select_btn span {
+=======
+.Cha_select_c .select_btn span {
+>>>>>>> SW
     font-family: "Roboto";
     font-style: normal;
     font-weight: 300;
@@ -77,8 +104,13 @@
     text-align: center;
     color: #54b5c2;
   }
+<<<<<<< HEAD
   .Wrap_c .Container_c .Cha_select .img_select {
     height: 70vh;
+=======
+.Cha_select_c .img_select {
+    height: 60vh;
+>>>>>>> SW
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
@@ -100,11 +132,21 @@
     border: 4px solid #54b5c2;
   }
   
+<<<<<<< HEAD
   .Wrap_c .Container_c .Cha_select .img_select ul li input {
     width: 100%;
     height: 100%;
   }
   
+=======
+  .Cha_select_c .img_select ul li input {
+    width: 100%;
+    height: 100%;
+    
+  }
+  
+  
+>>>>>>> SW
   .select_btn span:hover {
     cursor: pointer;
   }
@@ -112,6 +154,7 @@
   .text_box {
     text-align: center;
   }
+<<<<<<< HEAD
   .text_box #Nick_Name {
     width: 250px;
     height: 46px;
@@ -128,11 +171,14 @@
     font-size: 24px;
     line-height: 28px;
   }
+=======
+>>>>>>> SW
   .Btn {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
+<<<<<<< HEAD
   .Btn ul li {
     width: 195px;
     height: 55px;
@@ -164,10 +210,14 @@
     line-height: 55px;
     text-align: center;
   }
+=======
+
+>>>>>>> SW
   .hidden {
     display: none;
   }
   
+<<<<<<< HEAD
   .Join {
     position: absolute;
     left: 50%;
@@ -215,3 +265,19 @@
   .Cheked{
     border: 4px solid #54b5c2;
   }
+=======
+  @media screen and (max-width:500px) {
+    .Cha_select_c {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 324px;
+      height: 70vh;
+      background: #0f0c13;
+      border: 15px solid #201651;
+      border-radius: 20px;
+      z-index: 100;
+    }
+  }
+>>>>>>> SW

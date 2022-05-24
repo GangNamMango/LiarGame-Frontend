@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { HiArrowNarrowLeft, HiCog } from "react-icons/hi";
+import { CgProfile} from "react-icons/cg";
 
 const Nav = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 15%;
+  height: 120px;
   margin: 0 24px;
 `;
 
@@ -26,10 +27,27 @@ const Menu = styled.div`
     color: #54b5c2;
     width: 3em;
     height: 3em;
+    cursor: pointer;
+  }
+  p{
+    position:absolute;
+    width:100px;
+    font-family: 'Gugi';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+top:55px;
+left:-20px;
+color: #53A6C8;
   }
 `;
 
+<<<<<<< HEAD
 const Navigation = ({ PopUp, OnclickPopUp, sendLeave, OnclickCharacter }) => {
+=======
+const Navigation = ({ CharacterPop,PopUp, OnclickPopUp, sendLeave, OnclickCharacter}) => {
+>>>>>>> SW
   const onToggle = () => {
     OnclickPopUp();
   };
@@ -39,14 +57,22 @@ const Navigation = ({ PopUp, OnclickPopUp, sendLeave, OnclickCharacter }) => {
   return (
     <Nav>
       <Link to={"/"}>
-        <Menu className={PopUp ? "hidden" : ""} onClick={() => sendLeave()}>
+        <Menu className={PopUp || CharacterPop ? "hidden" : ""} onClick={() => sendLeave()}>
           <HiArrowNarrowLeft className="icon" />
         </Menu>
       </Link>
+<<<<<<< HEAD
       <Menu onClick={onToggle2}>
         <HiCog className="icon" />
       </Menu>
       <Menu onClick={onToggle}>
+=======
+      <Menu className={PopUp ? "hidden" : ""} onClick={onToggle2}>
+        <CgProfile className="icon" />
+        <p>캐릭터 설정</p>
+      </Menu>
+      <Menu className={CharacterPop ? "hidden" : ""} onClick={onToggle}>
+>>>>>>> SW
         <HiCog className="icon" />
       </Menu>
     </Nav>

@@ -26,12 +26,15 @@ const TextBox = styled.p`
 
   border-radius: 10px;
 
-  font-size: 25px;
-  font-weight: lighter;
-
+  font-family: 'Gugi';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 35px;
   text-align: center;
+  
+  color: #53A6C8;
 
-  color: #54b5c2;
 `;
 
 const Box = styled.div`
@@ -43,13 +46,22 @@ const Box = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 300;
-  font-size: 24px;
-  text-align: center;
-  color: #54b5c2;
+font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 28px;
+line-height: 35px;
+text-align: center;
+
+color: #53A6C8;
+
 `;
 const topics = Topics;
+<<<<<<< HEAD
 const timeLimits = [10, 20, 30, 60];
+=======
+const timeLimits = [60, 90, 120, 150, 180];
+>>>>>>> SW
 
 const Setting = ({ setTopic, setTimeLimit }) => {
   return (

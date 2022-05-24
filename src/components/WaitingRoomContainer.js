@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 import styled from "styled-components";
@@ -8,10 +8,19 @@ import Setting from "./Setting";
 import Character from "./Character";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
+<<<<<<< HEAD
 import { updateUsers, settingRoom, changeCharacter } from "../modules/room";
 import { characterpop } from "../modules/character";
 import Change from "./ChageCharacter";
 import CharaterImg from "../data/character";
+=======
+import { updateUsers, settingRoom, changeCharacter,startGame } from "../modules/room";
+import { characterpop } from "../modules/character";
+import Change from "./ChageCharacter";
+import Button2 from "./Button2";
+import {CgCrown } from "react-icons/cg";
+import { useHistory } from "react-router-dom";
+>>>>>>> SW
 
 const Wrap = styled.div`
   position: relative;
@@ -25,22 +34,48 @@ const Wrap = styled.div`
 const RoomInfo = styled.div`
   display: flex;
   height: 30px;
-  margin-bottom: 10px;
-  text-align: center;
+  margin: 0 20px 40px 20px;
+  justify-content:space-around;
+  .text{
+    font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 80.5px;
+text-align: center;
 
-  .text,
-  .number {
-    margin: auto;
-    font-weight: 400;
-    font-size: 26px;
-    line-height: 30px;
-    color: #54b5c2;
+color: #53A6C8;
   }
+  .number{
+    font-family: 'Do Hyeon';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 55px;
+    line-height: 69px;
+    text-align: center;
+    color: #53A6C8;
+  }
+
 `;
+const RoomSubInfo = styled.div`
+margin-bottom:50px;
+p{
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+text-align: center;
+
+color: #757575;
+}
+@media screen and (max-width:500px){
+  margin-bottom:30px;
+}
+`
 
 const Content = styled.div`
   width: 100%;
-  height: 350px;
+  height: 45.2vh;
   display: flex;
   padding: 0 5%;
   margin: 0 auto;
@@ -65,9 +100,28 @@ const Footer = styled.div`
   align-items: center;
 `;
 
+const HostIcon = styled(CgCrown)`
+position:absolute;
+left:35px;
+bottom:70px;
+color: #FFFF36;
+width: 3em;
+height: 3em;
+`
+const Host = styled.div`
+position:relative;
+width: 120px;
+height: 120px;
+`
+
 const WaitingRoomContainer = () => {
+<<<<<<< HEAD
   const [topic, setTopic] = useState("");
   const [timeLimit, setTimeLimit] = useState();
+=======
+  const [topic, setTopic] = useState("랜덤");
+  const [timeLimit, setTimeLimit] = useState(60);
+>>>>>>> SW
   const [character, setCharacter] = useState();
 
   //socket 연결
@@ -76,11 +130,16 @@ const WaitingRoomContainer = () => {
   //stomp 연결
   const stomp = StompJs.over(sock);
 
+
   const { PopUp } = useSelector((state) => ({
     PopUp: state.popup.PopUp,
   })); //초기값 false;
 
+<<<<<<< HEAD
   const { CharacterPop } = useSelector((state) => ({
+=======
+  const {CharacterPop} =useSelector((state)=> ({
+>>>>>>> SW
     CharacterPop: state.characterpop.CharacterPop,
   }));
 
@@ -92,7 +151,7 @@ const WaitingRoomContainer = () => {
 
   React.useEffect(() => {
     stompConnect();
-  }, []);
+  },[]);
 
   function stompConnect() {
     stomp.connect({}, () => {
@@ -107,6 +166,7 @@ const WaitingRoomContainer = () => {
         `/sub/game/enter/${Rooms.data.gameRoom.roomId}`,
         (body) => {
           let data = JSON.parse(body.body);
+          console.log(Rooms.data.gameRoom.users.nickname)
           dispatch(updateUsers(data.data));
         }
       );
@@ -126,7 +186,11 @@ const WaitingRoomContainer = () => {
         (body) => {
           let data = JSON.parse(body.body);
           console.log(data);
+<<<<<<< HEAD
           dispatch(changeCharacter(data.data[0].character));
+=======
+          dispatch(changeCharacter(data.data));
+>>>>>>> SW
         }
       );
 
@@ -136,8 +200,24 @@ const WaitingRoomContainer = () => {
         (body) => {
           let data = JSON.parse(body.body);
           dispatch(updateUsers(data.data));
+<<<<<<< HEAD
+=======
+          
+
+          //이후 처리
+>>>>>>> SW
         }
       );
+      //게임이 시작됐을때 이벤트
+      stomp.subscribe(
+        `/sub/game/start/${Rooms.data.gameRoom.roomId}`,
+        (body) => {
+          let data = JSON.parse(body.body);
+          console.log(data);
+          dispatch(startGame(data.data));
+          
+        }
+      )
     });
   }
 
@@ -169,6 +249,17 @@ const WaitingRoomContainer = () => {
     );
   }
 
+  function StartGame() {
+    stomp.send(
+      "/pub/game/start",
+      {},
+      JSON.stringify({
+        roomId: Rooms.data.gameRoom.roomId,
+        userId: Rooms.data.userId,
+      })
+    )
+  }
+
   function disconnect() {
     stomp.disconnect(() => {
       console.log("socket연결 해제");
@@ -187,6 +278,7 @@ const WaitingRoomContainer = () => {
     disconnect();
   }
 
+
   const OnclickPopUp = () => {
     dispatch(popup());
   };
@@ -203,12 +295,43 @@ const WaitingRoomContainer = () => {
   const OnClickChangeProfile = () => {
     changeUserProfile();
     OnclickCharacter();
+<<<<<<< HEAD
   };
+=======
+  }
+
+  const OnClickStartGame = () => {
+    StartGame();
+  }
+
+  const history = useHistory();
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+  
+      event.returnValue = sendLeave();
+    })
+    let unlisten = history.listen((location) => {
+      if (history.action === 'PUSH') {
+      }
+      if (history.action === 'POP') {
+        sendLeave()
+      }
+    });
+
+    return () => {
+      unlisten();
+    };
+  }, [history]);
+
+>>>>>>> SW
 
   return (
     <Wrap>
       <Navigation
         PopUp={PopUp}
+        CharacterPop={CharacterPop}
         OnclickPopUp={OnclickPopUp}
         OnclickCharacter={OnclickCharacter}
         sendLeave={sendLeave}
@@ -216,9 +339,15 @@ const WaitingRoomContainer = () => {
 
       {PopUp ? (
         <Setting setTopic={setTopic} setTimeLimit={setTimeLimit}></Setting>
+<<<<<<< HEAD
       ) : CharacterPop ? (
         <Change setCharacter={setCharacter} />
       ) : (
+=======
+      ) :CharacterPop ? (
+        <Change setCharacter={setCharacter}/>
+      ) :(
+>>>>>>> SW
         <>
           <RoomInfo>
             <span className="text">방 코드</span>
@@ -230,30 +359,52 @@ const WaitingRoomContainer = () => {
               )}
             </span>
           </RoomInfo>
+          <RoomSubInfo>
+          <p>원활한 플레이는 3명부터 가능합니다</p>
+          </RoomSubInfo>
           <Content>
             {Rooms.isLoading || Rooms.error ? (
               <></>
             ) : (
-              Rooms.data.gameRoom.users.map((user, i) => (
-                <Character
+                Rooms.data.gameRoom.users.map((user, i) => (
+                  user.role == "host" ? 
+                  <Host>
+                    <HostIcon/>
+                  <Character
+                    key={i}
+                    src={"/img/character-" + user.character + ".png"}
+                    width="100px"
+                    height="100px"
+                    nickName={user.nickname}
+                  />
+                  </Host>
+                  : <Character
                   key={i}
                   src={"/img/character-" + user.character + ".png"}
                   width="100px"
                   height="100px"
                   nickName={user.nickname}
                 />
-              ))
+                ))
+              
             )}
           </Content>
         </>
+        
       )}
       <Footer>
         {PopUp ? (
+<<<<<<< HEAD
           <Button value="확인" onClick={OnClickSetting} />
         ) : CharacterPop ? (
           <Button value="변경" onClick={OnClickChangeProfile} />
+=======
+          <Button value="확인" OnClick={OnClickSetting} />
+        ) :CharacterPop ? (
+          <Button2 value="변경" OnClickChangeProfile = {OnClickChangeProfile}/>
+>>>>>>> SW
         ) : (
-          <Button value="게임 시작" />
+          <Button value="게임 시작" OnClick={OnClickStartGame}/>
         )}
       </Footer>
     </Wrap>

@@ -23,6 +23,7 @@
   box-sizing: border-box;
   border-radius: 50px;
   margin-bottom: 35px;
+  cursor: pointer;
 }
 .Img_area img {
   width: 100%;
@@ -30,15 +31,21 @@
 }
 .Cha_select {
   position: absolute;
+<<<<<<< HEAD
   top: 12%;
   left: 100%;
+=======
+  top: 13%;
+  left: 50%;
+>>>>>>> SW
   transform: translateX(-50%);
   width: 324px;
-  height: 85vh;
+  height: 550px;
   background: #0f0c13;
   border: 15px solid #201651;
   border-radius: 20px;
   z-index: 100;
+
 }
 .Cha_select .title {
   position: absolute;
@@ -49,13 +56,15 @@
   border-radius: 20px;
   left: 50%;
   transform: translate(-50%, -56%);
-  text-align: center;
-  line-height: 55px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 26px;
-  color: #54b5c2;
+  font-family: 'Gugi';
+font-style: normal;
+font-weight: 400;
+font-size: 28px;
+line-height: 55px;
+text-align: center;
+
+color: #53A6C8;
+
 }
 .Cha_select .select_btn {
   position: absolute;
@@ -74,7 +83,11 @@
   color: #54b5c2;
 }
 .Cha_select .img_select {
+<<<<<<< HEAD
   height: 70vh;
+=======
+  height: 500px;
+>>>>>>> SW
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
@@ -128,6 +141,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
 }
 .Btn ul li {
   width: 195px;
@@ -153,12 +167,22 @@
 }
 .Blue {
   color: #54b5c2;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 55px;
   text-align: center;
+  font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 55px;
+}
+.Blue_Gugi{
+  font-family: 'Gugi';
+font-style: normal;
+font-weight: 400;
+font-size: 28px;
+line-height: 55px;
+text-align: center;
+
+color: #53A6C8;
 }
 .hidden {
   display: none;
@@ -174,6 +198,7 @@
   z-index: 99;
   border: 15px solid #201651;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .Join .title {
@@ -194,7 +219,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -210,10 +235,163 @@
 .Join p {
   position: absolute;
   bottom: 0;
+  left: 20%;
+  transform: translateX(-20%);
+  cursor: pointer;
+}
+.Join p+p{
+  left: 80%;
+  transform: translateX(-80%);
+}
+
+.Checked:focus{
+  border: 4px solid #54b5c2;
+}
+.Service {
+  position: absolute;
+  top: 11%;
   left: 50%;
   transform: translateX(-50%);
+  width: 324px;
+  height: 550px;
+  background: #0f0c13;
+  border: 15px solid #201651;
+  border-radius: 20px;
+  z-index: 100;
+  overflow: scroll;
 }
+.Service .title{
+  font-family: 'Gugi';
+font-style: normal;
+font-weight: 400;
+font-size: 28px;
+line-height: 35px;
+text-align: center;
+color: #53A6C8;
+margin-bottom: 30px;
+}
+.Service div a{
+  display: block;
+  font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 25px;
+color: #8699CA;
+margin-bottom: 10px;
+word-break: keep-all;
+}
+footer div{
+  display: flex;
+  justify-content: space-around;
+  margin: 0 60px;
+}
+footer div img{
+  position: absolute;
+width: 90px;
+height: 29px;
+bottom: 30px;
+}
+<<<<<<< HEAD
 
 .Checked:focus {
   border: 4px solid #54b5c2;
 }
+=======
+footer div p{
+  position: absolute;
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 18px;
+bottom: 30px;
+color: #757575;
+cursor: pointer;
+}
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 91vh;
+  background-color: #0f0c13;
+}
+p.Text{
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 28px;
+text-align: center;
+color: #757575;
+margin-bottom: 10px;
+}
+
+  @media screen and (max-width:500px){
+    .Join{
+      transform: translate(-50%,-60px);
+    }
+    .Btn ul li:first-child {
+      margin-top: 30px;
+    }
+    .Btn ul li:last-child {
+      margin-top: 30px;
+    }
+    .Img_area {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      width: 200px;
+      height: 200px;
+      border: 4px solid #54b5c2;
+      box-sizing: border-box;
+      border-radius: 50px;
+      margin-bottom: 35px;
+      cursor: pointer;
+    }
+    .text_box #Nick_Name {
+      width: 200px;
+      height: 46px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 2px solid #6e6693;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      color: #757575;
+      text-align: center;
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 28px;
+    }
+    .Btn ul li {
+      width: 175px;
+      height: 55px;
+      background: #201651;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 20px;
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 55px;
+      text-align: center;
+      color: #54b5c2;
+    }
+    .Service {
+      position: absolute;
+      top: 11%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 324px;
+      height: 520px;
+      background: #0f0c13;
+      border: 15px solid #201651;
+      border-radius: 20px;
+      z-index: 100;
+      overflow: scroll;
+    }
+  }
+>>>>>>> SW

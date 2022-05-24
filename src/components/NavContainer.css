@@ -9,6 +9,7 @@
 }
 
 .Nav_area .Nav_open {
+  position: absolute;
   width: 50px;
   height: 50px;
   background-color: #201651;
@@ -76,9 +77,9 @@
 .popup_area {
   position: absolute;
   width: 324px;
-  height: 500px;
+  height: 70vh;
   left: 33px;
-  top: 150px;
+  top: 100px;
   background: #0f0c13;
   border: 15px solid #201651;
   border-radius: 20px;
@@ -96,13 +97,15 @@
   background: #201651;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  font-family: "Roboto";
+  font-family: 'Do Hyeon';
   font-style: normal;
   font-weight: 400;
-  font-size: 26px;
+  font-size: 32px;
   line-height: 55px;
   text-align: center;
-  color: #54b5c2;
+  
+  color: #53A6C8;
+  
   transition: all 0.5s linear;
 }
 .popup_area ul li + li {
@@ -112,9 +115,11 @@
   top: 60%;
 }
 .bg {
+  position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 91vh;
   background-color: #0f0c13;
+  
 }
 
 .popup_area ul .Move_top {
@@ -132,6 +137,7 @@
   background-color: #0f0c13;
   opacity: 1;
   transition: all 0.5s linear;
+  overflow: scroll;
 }
 .block span {
   font-family: "Roboto";
@@ -157,7 +163,99 @@
 .block div {
   height: 30%;
 }
+.block div.Sub{
+  height: 300px;
+}
+.block div.Sub p:nth-child(2){
+  margin-bottom: 20px;
+}
 .none {
   position: absolute;
   opacity: 0;
+}
+
+.GameLogo{
+  position: absolute;
+width: 193px;
+height: 59px;
+left: 99px;
+top: 10px;
+}
+
+.About_list li{
+  cursor: pointer;
+
+}
+.About_list li span{
+  font-family: 'Gugi';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 35px;
+  text-align: center;
+  
+  color: #53A6C8;
+}
+
+.makeRoomBtn{
+  position: absolute;
+width: 126px;
+height: 36px;
+margin-top: 60px;
+left: 50%;
+transform: translateX(-50%);
+}
+.SettingBtn{
+  position: absolute;
+  width: 40px;
+  left: 50%;
+transform: translateX(-50%);
+margin-top: 60px;
+}
+.WaitPop{
+  display: table;
+  margin: 0 auto;
+width: 135px;
+height: 189.51px;
+  margin-top: 30px;
+
+}
+.DoHyeon{
+  display: flex;
+  margin: 0 20px;
+}
+.DoHyeon:first-child{
+  margin-top: 30px;
+}
+.DoHyeon p{
+  font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+color: #8699CA;
+word-break: keep-all;
+}
+.WaitView{
+  position: absolute;
+width: 129px;
+margin-top: 60px;
+left: 50%;
+transform: translateX(-50%);
+}
+.CodePop{
+transform: translateX(50%);
+height: 120.92px;
+margin-top: 30px;
+}
+
+span.colors{
+  font-family: 'Do Hyeon';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 28px;
+color: #53A6C8;
+}
+.Long p{
+  margin-bottom: 20px;
 }
