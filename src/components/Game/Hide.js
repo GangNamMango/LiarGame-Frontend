@@ -90,7 +90,7 @@ left:50%;
 transform:translate(-50%,10px);
 text-align: center;
 
-color: #EEEEEE;
+color: rgba(238, 238, 238, 0.5);
 
 }
 @media screen and (max-width:500px){
@@ -140,7 +140,7 @@ left:50%;
 transform:translate(-50%,10px);
 text-align: center;
 
-color: #EEEEEE;
+color: rgba(238, 238, 238, 0.5);
 
 }
 
