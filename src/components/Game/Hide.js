@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { countDown, vote } from "../../modules/room";
+import { countDown, exit, result, updateUsers, vote } from "../../modules/room";
 import Vote from "./Vote";
 import { useHistory } from "react-router-dom";
 
@@ -246,6 +246,7 @@ word-break: keep-all;
   }
 `
 const BackText = styled.div`
+width:300px;
 position:absolute;
 left:50%;
 top:50%;
@@ -260,15 +261,15 @@ font-weight: 400;
   line-height:140px;
 color: #E9DFF5;
 }
-
 p:nth-child(2){
+  width:300px;
+  word-break: keep-all;
   font-family: 'Do Hyeon';
 font-style: normal;
 font-weight: 400;
 font-size: 50px;
 line-height: 40px;
 text-align: center;
-
 color: #53A6C8;
 }
 `
@@ -286,28 +287,6 @@ const Hide = () => {
     const [turn,setTurn] = useState(false);
     const [seconds, setSeconds] = useState(Rooms.data.gameRoom.setting.timeLimit);
 
-    React.useEffect(() => {
-      stompConnect();
-    }, []);
-    
-    function stompConnect() {
-      stomp.connect({}, () => {
-        stomp.subscribe(`/sub/game/countdown/${Rooms.data.gameRoom.roomId}`, (body) => {
-          let data = JSON.parse(body.body);
-          console.log(data.data.count);
-          if(data.data.count==0)
-          dispatch(countDown(data.data));
-        });
-        
-      }
-      )}
-
-      function disconnect() {
-        stomp.disconnect(() => {
-          console.log("socket연결 해제");
-        });
-      }
-
       function sendLeave() {
         stomp.send(
           `/pub/game/leave`,
@@ -317,7 +296,6 @@ const Hide = () => {
             userId: Rooms.data.userId,
           })
         );
-        disconnect();
       }
 
       function sendVote() {
@@ -345,7 +323,8 @@ const Hide = () => {
           }
           if (history.action === 'POP') {
             history.push('/');
-            sendLeave();
+        sendLeave();
+            
           }
         });
     

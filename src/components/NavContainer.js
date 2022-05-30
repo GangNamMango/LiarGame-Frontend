@@ -40,7 +40,7 @@ color: #53A6C8;
         <span></span>
         <span></span>
       </div>
-      <div><h1>라이어게임<img className="GameLogo" src="/img/GameName.png"/></h1></div>
+      <div><h1 className="game_title">라이어게임</h1><img className="GameLogo" src="/img/GameName.png"/></div>
       <div className={popup ? "bg" : ""}></div>
       <div className={popup ? "popup_area" : "hidden"}>
         <div className={game ? "block" : "none"}>

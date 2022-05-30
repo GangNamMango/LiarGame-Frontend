@@ -33,40 +33,25 @@ const MainContainer = () => {
   };
 
   const makeRoom = () => {
-<<<<<<< HEAD
     if (nickName == "") {
       alert("닉네임을 설정해주세요");
       return;
     } else {
       dispatch(postMakeRoom(nickName, getImg));
     }
-=======
-    if(nickName == ""){
-      alert('닉네임을 설정해주세요');
-      return;
-    }
-    else {dispatch(postMakeRoom(nickName, getImg));}
     
->>>>>>> SW
   };
 
   const enterRoom = () => {
     console.log("enter");
     console.log(roomId);
-<<<<<<< HEAD
     if (nickName == "") {
       alert("닉네임을 설정해주세요");
       return;
     } else {
       dispatch(postEnterRoom(roomId, nickName, getImg));
     }
-=======
-    if(nickName == ""){
-      alert('닉네임을 설정해주세요');
-      return;
-    }
-    else{dispatch(postEnterRoom(roomId, nickName, getImg));}
->>>>>>> SW
+
   };
 
   const close = () => {

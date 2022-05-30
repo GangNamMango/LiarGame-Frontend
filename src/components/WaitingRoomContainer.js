@@ -8,19 +8,13 @@ import Setting from "./Setting";
 import Character from "./Character";
 import { useSelector, useDispatch } from "react-redux";
 import { popup } from "../modules/popup";
-<<<<<<< HEAD
-import { updateUsers, settingRoom, changeCharacter } from "../modules/room";
-import { characterpop } from "../modules/character";
-import Change from "./ChageCharacter";
-import CharaterImg from "../data/character";
-=======
-import { updateUsers, settingRoom, changeCharacter,startGame } from "../modules/room";
+import { updateUsers, settingRoom, changeCharacter,startGame, exit, vote, result, countDown } from "../modules/room";
 import { characterpop } from "../modules/character";
 import Change from "./ChageCharacter";
 import Button2 from "./Button2";
 import {CgCrown } from "react-icons/cg";
 import { useHistory } from "react-router-dom";
->>>>>>> SW
+
 
 const Wrap = styled.div`
   position: relative;
@@ -115,37 +109,21 @@ height: 120px;
 `
 
 const WaitingRoomContainer = () => {
-<<<<<<< HEAD
-  const [topic, setTopic] = useState("");
-  const [timeLimit, setTimeLimit] = useState();
-=======
+
   const [topic, setTopic] = useState("랜덤");
   const [timeLimit, setTimeLimit] = useState(60);
->>>>>>> SW
+
   const [character, setCharacter] = useState();
-
-  //socket 연결
-  const sock = new SockJs("http://3.35.178.104/socket");
-
-  //stomp 연결
-  const stomp = StompJs.over(sock);
-
-
-  const { PopUp } = useSelector((state) => ({
-    PopUp: state.popup.PopUp,
-  })); //초기값 false;
-
-<<<<<<< HEAD
-  const { CharacterPop } = useSelector((state) => ({
-=======
-  const {CharacterPop} =useSelector((state)=> ({
->>>>>>> SW
-    CharacterPop: state.characterpop.CharacterPop,
-  }));
 
   const { Rooms } = useSelector((state) => ({
     Rooms: state.room,
   }));
+
+    //socket 연결
+    const sock = new SockJs("http://3.35.178.104/socket");
+
+    //stomp 연결
+    const stomp = StompJs.over(sock);
 
   const dispatch = useDispatch();
 
@@ -186,11 +164,9 @@ const WaitingRoomContainer = () => {
         (body) => {
           let data = JSON.parse(body.body);
           console.log(data);
-<<<<<<< HEAD
-          dispatch(changeCharacter(data.data[0].character));
-=======
+
           dispatch(changeCharacter(data.data));
->>>>>>> SW
+
         }
       );
 
@@ -200,12 +176,6 @@ const WaitingRoomContainer = () => {
         (body) => {
           let data = JSON.parse(body.body);
           dispatch(updateUsers(data.data));
-<<<<<<< HEAD
-=======
-          
-
-          //이후 처리
->>>>>>> SW
         }
       );
       //게임이 시작됐을때 이벤트
@@ -213,13 +183,36 @@ const WaitingRoomContainer = () => {
         `/sub/game/start/${Rooms.data.gameRoom.roomId}`,
         (body) => {
           let data = JSON.parse(body.body);
-          console.log(data);
           dispatch(startGame(data.data));
-          
         }
-      )
+      );
+      stomp.subscribe(`/sub/game/countdown/${Rooms.data.gameRoom.roomId}`, (body) => {
+        let data = JSON.parse(body.body);
+        if(data.data.count == 0)dispatch(countDown(data.data));
+      });
+      stomp.subscribe(`/sub/game/vote/${Rooms.data.gameRoom.roomId}`, 
+      (body)=>{
+        let data = JSON.parse(body.body);  
+        dispatch(vote(data.data));
+    });
+    stomp.subscribe(`/sub/game/result/${Rooms.data.gameRoom.roomId}`, (body)=>{
+      let data = JSON.parse(body.body); 
+      dispatch(result(data.data)); 
+  });
     });
   }
+
+
+  const { PopUp } = useSelector((state) => ({
+    PopUp: state.popup.PopUp,
+  })); //초기값 false;
+
+
+  const {CharacterPop} =useSelector((state)=> ({
+    CharacterPop: state.characterpop.CharacterPop,
+  }));
+
+  
 
   function sendSetting() {
     stomp.send(
@@ -295,9 +288,6 @@ const WaitingRoomContainer = () => {
   const OnClickChangeProfile = () => {
     changeUserProfile();
     OnclickCharacter();
-<<<<<<< HEAD
-  };
-=======
   }
 
   const OnClickStartGame = () => {
@@ -316,7 +306,6 @@ const WaitingRoomContainer = () => {
       if (history.action === 'PUSH') {
       }
       if (history.action === 'POP') {
-        sendLeave()
       }
     });
 
@@ -325,7 +314,7 @@ const WaitingRoomContainer = () => {
     };
   }, [history]);
 
->>>>>>> SW
+
 
   return (
     <Wrap>
@@ -339,15 +328,10 @@ const WaitingRoomContainer = () => {
 
       {PopUp ? (
         <Setting setTopic={setTopic} setTimeLimit={setTimeLimit}></Setting>
-<<<<<<< HEAD
-      ) : CharacterPop ? (
-        <Change setCharacter={setCharacter} />
-      ) : (
-=======
       ) :CharacterPop ? (
         <Change setCharacter={setCharacter}/>
       ) :(
->>>>>>> SW
+
         <>
           <RoomInfo>
             <span className="text">방 코드</span>
@@ -394,15 +378,10 @@ const WaitingRoomContainer = () => {
       )}
       <Footer>
         {PopUp ? (
-<<<<<<< HEAD
-          <Button value="확인" onClick={OnClickSetting} />
-        ) : CharacterPop ? (
-          <Button value="변경" onClick={OnClickChangeProfile} />
-=======
           <Button value="확인" OnClick={OnClickSetting} />
         ) :CharacterPop ? (
           <Button2 value="변경" OnClickChangeProfile = {OnClickChangeProfile}/>
->>>>>>> SW
+
         ) : (
           <Button value="게임 시작" OnClick={OnClickStartGame}/>
         )}

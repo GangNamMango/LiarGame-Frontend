@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { result, vote } from "../../modules/room";
+import { exit, result, updateUsers, vote } from "../../modules/room";
 import { useHistory } from "react-router-dom";
 
 const Wrap = styled.div`
@@ -92,25 +92,7 @@ const WaitVote = () => {
     const stomp = StompJs.over(sock);
 
     const dispatch = useDispatch();
-    React.useEffect(() => {
-        stompConnect();
-      }, []);
 
-    function stompConnect() {
-        stomp.connect({}, () => {
-  
-          stomp.subscribe(`/sub/game/vote/${Rooms.data.gameRoom.roomId}`, (body)=>{
-            let data = JSON.parse(body.body);  
-            dispatch(vote(data.data));
-        });
-        stomp.subscribe(`/sub/game/result/${Rooms.data.gameRoom.roomId}`, (body)=>{
-          let data = JSON.parse(body.body); 
-          if(Rooms.data.gameRoom.VoteSet.maxVoteCount == Rooms.data.gameRoom.VoteSet.currentVoteCount){
-          dispatch(result(data.data)); 
-          }
-      });
-    }
-    )}
     function disconnect() {
         stomp.disconnect(() => {
           console.log("socket연결 해제");
@@ -127,17 +109,11 @@ const WaitVote = () => {
         );
         disconnect();
       }
-
+      
 
         const [current, setCurrent] = useState(0);
         const [max, setMax] = useState(Rooms.data.gameRoom.users.length);
     
-        const check = () => {
-            console.log(Rooms.data.gameRoom.gameStatus);
-            if(current == 0) return '1';
-            else return Rooms.data.gameRoom.VoteSet.currentVoteCount;
-            
-        }
         const history = useHistory();
         
         useEffect(() => {
@@ -150,8 +126,6 @@ const WaitVote = () => {
               if (history.action === 'PUSH') {
               }
               if (history.action === 'POP') {
-                history.push('/');
-                sendLeave();
               }
             });
         
@@ -166,7 +140,7 @@ const WaitVote = () => {
         <Wrap>
             <Title>투표 완료</Title>
             <NumWrap>
-            <NUM>{check()}</NUM><NUM>/</NUM><NUM>{max}</NUM>
+            <NUM>{Rooms.data.gameRoom.VoteSet.currentVoteCount}</NUM><NUM>/</NUM><NUM>{max}</NUM>
             </NumWrap>
             <ImgArea>
             <img src={'/img/LogoDot.png'} />

@@ -259,3 +259,9 @@ color: #53A6C8;
 .Long p{
   margin-bottom: 20px;
 }
+
+.game_title{
+  display: none;
+  text-indent: 9999px;
+  overflow: hidden;
+}

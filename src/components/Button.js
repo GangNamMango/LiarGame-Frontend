@@ -24,16 +24,12 @@ color: #53A6C8;
   }
 `;
 
-<<<<<<< HEAD
-const Button = ({ value, onClick }) => {
-  function click(e) {
-    onClick();
-=======
+
 const Button = ({ value, OnClick }) => {
   
   function click(e) {
     OnClick();
->>>>>>> SW
+
   }
   
   return <Btn onClick={click}>{value}</Btn>;

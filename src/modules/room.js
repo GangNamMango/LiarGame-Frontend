@@ -22,8 +22,7 @@ const CHANGEPROFILE = "CHANGEPROFILE";
 const CHANGEPROFILE_SUCCESS = "CHANGEPROFILE_SUCCESS";
 const CHANGEPROFILE_ERROR = "CHANGEPROFILE_ERROR";
 
-<<<<<<< HEAD
-=======
+
 const STARTGAME = "STARTGAME";
 const STARTGAME_SUCCESS = "STARTGAME_SUCCESS";
 const STARTGAME_ERROR = "STARTGAME_ERROR";
@@ -40,7 +39,10 @@ const RESULT = "RESULT";
 const RESULT_SUCCESS = "RESULT_SUCCESS";
 const RESULT_ERROR = "RESULT_ERROR";
 
->>>>>>> SW
+const EXIT = "EXIT";
+const EXIT_SUCCESS = "EXIT_SUCCESS";
+const EXIT_ERROR = "EXIT_ERROR";
+
 export const postMakeRoom =
   (nickName, getImg) =>
   async (dispatch, getState, { history }) => {
@@ -82,21 +84,6 @@ export const settingRoom =
     }
   };
 
-<<<<<<< HEAD
-export const changeCharacter =
-  (character) =>
-  async (dispatch, getState, { history }) => {
-    dispatch({ type: CHANGEPROFILE }); //요청이 시작됨
-    try {
-      dispatch({
-        type: CHANGEPROFILE_SUCCESS,
-        room: { character: character },
-      }); //성공
-    } catch (e) {
-      dispatch({ type: CHANGEPROFILE_ERROR, error: e }); //실패
-    }
-  };
-=======
   export const changeCharacter =
   (character) =>
   async (dispatch, getState, {history}) => {
@@ -110,7 +97,6 @@ export const changeCharacter =
       dispatch({ type: CHANGEPROFILE_ERROR,error: e}); //실패
     }
   }
->>>>>>> SW
 
 export const updateUsers =
   (users) =>
@@ -183,6 +169,8 @@ export const updateUsers =
         dispatch({ type: RESULT_ERROR, error: e});
       }
     }
+
+
 
 
 const initialState = {
@@ -276,32 +264,6 @@ export default function room(state = initialState, action) {
         data: null,
         error: action.error,
       };
-<<<<<<< HEAD
-    case CHANGEPROFILE:
-      return {
-        ...state,
-
-        isLoading: true,
-        error: null,
-      };
-    case CHANGEPROFILE_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        data: {
-          ...state.data,
-          gameRoom: {
-            ...state.data.gameRoom,
-            users: state.data.gameRoom.users.map((u, i) => {
-              //캐릭터 변경한 user id로 user를 찾아내서 character값 변경하는 로직
-            }),
-          },
-        },
-      };
-    case CHANGEPROFILE_ERROR:
-      return {
-        ...state,
-=======
       case CHANGEPROFILE:
         return {
           ...state,
@@ -326,17 +288,13 @@ export default function room(state = initialState, action) {
       case CHANGEPROFILE_ERROR:
         return{
           ...state,
->>>>>>> SW
+
 
         isLoading: false,
         data: null,
         error: action.error,
-<<<<<<< HEAD
-      };
-=======
-        }
->>>>>>> SW
 
+      };
     case UPDATEUSERS:
       return {
         ...state,
@@ -415,6 +373,7 @@ export default function room(state = initialState, action) {
             ...state.data,
             gameRoom: {
               ...state.data.gameRoom,
+              count: action.room.count,
               gameStatus: action.room.gameStatus,
               VoteSet: {
                 ...state.data.gameRoom.VoteSet,
@@ -448,6 +407,7 @@ export default function room(state = initialState, action) {
               ...state.data,
               gameRoom: {
                 ...state.data.gameRoom,
+                gameStatus: action.room.gameStatus,
                 VoteSet: {
                   ...state.data.gameRoom.VoteSet,
                   maxVoteCount: action.room.maxVoteCount,
@@ -496,6 +456,35 @@ export default function room(state = initialState, action) {
             error: null,
           };
       case RESULT_ERROR:
+      return {
+        ...state,
+
+        isLoading: false,
+        data: null,
+        error: action.error,
+      };
+      case EXIT:
+        return {
+          ...state,
+  
+          isLoading: true,
+          error:null,
+        };
+        case EXIT_SUCCESS:
+          return{
+            ...state,
+            isLoading: false,
+            data: {
+              ...state.data,
+              gameRoom: {
+                ...state.data.gameRoom,
+                users: action.user,
+                gameStatus: action.room.gameStatus,
+              },
+            },
+            error: null,
+          };
+      case EXIT_ERROR:
       return {
         ...state,
 

@@ -31,13 +31,10 @@
 }
 .Cha_select {
   position: absolute;
-<<<<<<< HEAD
-  top: 12%;
-  left: 100%;
-=======
+
   top: 13%;
   left: 50%;
->>>>>>> SW
+
   transform: translateX(-50%);
   width: 324px;
   height: 550px;
@@ -83,11 +80,9 @@ color: #53A6C8;
   color: #54b5c2;
 }
 .Cha_select .img_select {
-<<<<<<< HEAD
-  height: 70vh;
-=======
+
   height: 500px;
->>>>>>> SW
+
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
@@ -289,32 +284,22 @@ footer div{
 footer div img{
   position: absolute;
 width: 90px;
-height: 29px;
 bottom: 30px;
+height: 29px;
 }
-<<<<<<< HEAD
-
-.Checked:focus {
-  border: 4px solid #54b5c2;
-}
-=======
 footer div p{
+  width: 100px;
   position: absolute;
   font-family: 'Roboto';
 font-style: normal;
 font-weight: 400;
 font-size: 15px;
-line-height: 18px;
 bottom: 30px;
+line-height: 18px;
 color: #757575;
 cursor: pointer;
 }
-.bg {
-  position: absolute;
-  width: 100%;
-  height: 91vh;
-  background-color: #0f0c13;
-}
+
 p.Text{
   font-family: 'Roboto';
 font-style: normal;
@@ -394,4 +379,3 @@ margin-bottom: 10px;
       overflow: scroll;
     }
   }
->>>>>>> SW

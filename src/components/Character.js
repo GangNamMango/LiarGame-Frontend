@@ -18,18 +18,12 @@ const CharacterName = styled.div`
 
 const Character = ({ src, width, height, nickName}) => {
   return (
-<<<<<<< HEAD
-    <div>
-      <div style={{ margin: "10px" }}>
-        <CharacterImg src={src} width={width} height={height} />
-        <CharacterName>{nickName}</CharacterName>
-      </div>
-=======
+
     <div> 
       <div style={{ margin: "10px" }}>
       <CharacterImg src={src} width={width} height={height}/>
       <CharacterName>{nickName}</CharacterName>
->>>>>>> SW
+
     </div>
       
     </div>

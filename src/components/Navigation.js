@@ -43,11 +43,9 @@ color: #53A6C8;
   }
 `;
 
-<<<<<<< HEAD
-const Navigation = ({ PopUp, OnclickPopUp, sendLeave, OnclickCharacter }) => {
-=======
+
 const Navigation = ({ CharacterPop,PopUp, OnclickPopUp, sendLeave, OnclickCharacter}) => {
->>>>>>> SW
+
   const onToggle = () => {
     OnclickPopUp();
   };
@@ -61,18 +59,12 @@ const Navigation = ({ CharacterPop,PopUp, OnclickPopUp, sendLeave, OnclickCharac
           <HiArrowNarrowLeft className="icon" />
         </Menu>
       </Link>
-<<<<<<< HEAD
-      <Menu onClick={onToggle2}>
-        <HiCog className="icon" />
-      </Menu>
-      <Menu onClick={onToggle}>
-=======
+
       <Menu className={PopUp ? "hidden" : ""} onClick={onToggle2}>
         <CgProfile className="icon" />
         <p>캐릭터 설정</p>
       </Menu>
       <Menu className={CharacterPop ? "hidden" : ""} onClick={onToggle}>
->>>>>>> SW
         <HiCog className="icon" />
       </Menu>
     </Nav>

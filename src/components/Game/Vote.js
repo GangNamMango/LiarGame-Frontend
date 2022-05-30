@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { result, vote } from "../../modules/room";
+import { exit, result, updateUsers, vote } from "../../modules/room";
 import WaitVote from "./WaiteVote";
 import { useHistory } from "react-router-dom";
 import "./Vote.css";
@@ -48,28 +48,12 @@ const Vote = () => {
 
         //stomp 연결
         const stomp = StompJs.over(sock);
-    
-        const dispatch = useDispatch();
-        React.useEffect(() => {
-            stompConnect();
-          }, []);
 
-        function stompConnect() {
-            stomp.connect({}, () => {
-      
-              stomp.subscribe(`/sub/game/vote/${Rooms.data.gameRoom.roomId}`, (body)=>{
-                let data = JSON.parse(body.body);  
-                dispatch(vote(data.data));
-            });
-            stomp.subscribe(`/sub/game/result/${Rooms.data.gameRoom.roomId}`, (body)=>{
-              let data = JSON.parse(body.body); 
-              if(Rooms.data.gameRoom.VoteSet.maxVoteCount == Rooms.data.gameRoom.VoteSet.currentVoteCount){
-              dispatch(result(data.data)); 
-              }
+        function disconnect() {
+          stomp.disconnect(() => {
+            console.log("socket연결 해제");
           });
-
-            }
-            )}
+        }
 
     function sendVote() {
         stomp.send(
@@ -81,11 +65,6 @@ const Vote = () => {
             voteTo: Rooms.data.gameRoom.users[Array].nickname,
           })
         );
-      }
-      function disconnect() {
-        stomp.disconnect(() => {
-          console.log("socket연결 해제");
-        });
       }
       function sendLeave() {
         stomp.send(
@@ -120,7 +99,7 @@ const Vote = () => {
           }
           if (history.action === 'POP') {
             history.push('/');
-            sendLeave();
+        sendLeave();
           }
         });
     
@@ -131,7 +110,7 @@ const Vote = () => {
 
     return(
         <>
-        {Rooms.data.gameRoom.gameStatus == 'END' || Rooms.data.gameRoom.gameStatus == 'CHOICE' ? <ResultPage/> :pop == 'voted' ? <WaitVote/> : <div className= "Cha_select_v">
+        {Rooms.data.gameRoom.gameStatus == 'END' || Rooms.data.gameRoom.gameStatus == 'CHOICE' ? <ResultPage/> : pop == 'voted' ? <WaitVote/> : <div className= "Cha_select_v">
         <div className="title">라이어 선택</div>
         <div className="img_select">
             {
