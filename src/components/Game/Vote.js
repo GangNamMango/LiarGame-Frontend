@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { exit, result, updateUsers, vote } from "../../modules/room";
 import WaitVote from "./WaiteVote";
 import { useHistory } from "react-router-dom";
 import "./Vote.css";
@@ -44,7 +43,7 @@ const Vote = () => {
     }));
     
         //socket 연결
-        const sock = new SockJs("http://3.35.178.104/socket");
+        const sock = new SockJs("http://localhost:8080/socket");
 
         //stomp 연결
         const stomp = StompJs.over(sock);
@@ -87,26 +86,26 @@ const Vote = () => {
         setPop(e);
         console.log(Rooms.data);
       }
-      const history = useHistory();
-      useEffect(() => {
-        window.addEventListener('beforeunload', (event) => {
-          event.preventDefault();
+      // const history = useHistory();
+      // useEffect(() => {
+      //   window.addEventListener('beforeunload', (event) => {
+      //     event.preventDefault();
       
-          event.returnValue = sendLeave();
-        })
-        let unlisten = history.listen((location) => {
-          if (history.action === 'PUSH') {
-          }
-          if (history.action === 'POP') {
-            history.push('/');
-        sendLeave();
-          }
-        });
+      //     event.returnValue = sendLeave();
+      //   })
+      //   let unlisten = history.listen((location) => {
+      //     if (history.action === 'PUSH') {
+      //     }
+      //     if (history.action === 'POP') {
+      //       history.push('/');
+      //   sendLeave();
+      //     }
+      //   });
     
-        return () => {
-          unlisten();
-        };
-      }, [history]);
+      //   return () => {
+      //     unlisten();
+      //   };
+      // }, [history]);
 
     return(
         <>

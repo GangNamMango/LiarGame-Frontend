@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import CharaterImg from "../data/character";
 import "./ChangeCharacter.css";
 

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { countDown, exit, result, updateUsers, vote } from "../../modules/room";
 import Vote from "./Vote";
 import { useHistory } from "react-router-dom";
 
@@ -278,7 +277,7 @@ const Hide = () => {
     Rooms: state.room,
   }));
     //socket 연결
-    const sock = new SockJs("http://3.35.178.104/socket");
+    const sock = new SockJs("http://localhost:8080/socket");
 
     //stomp 연결
     const stomp = StompJs.over(sock);
@@ -296,18 +295,7 @@ const Hide = () => {
             userId: Rooms.data.userId,
           })
         );
-      }
-
-      function sendVote() {
-        stomp.send(
-          "/pub/game/vote",
-          {},
-          JSON.stringify({
-            roomId: Rooms.data.gameRoom.roomId,
-            userId: Rooms.data.userId,
-          })
-        );
-      }
+      } 
 
 
       const history = useHistory();

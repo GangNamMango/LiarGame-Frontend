@@ -216,6 +216,7 @@ const MainContainer = () => {
 
 <a href="[https://www.flaticon.com/kr/free-icons/](https://www.flaticon.com/kr/free-icons/)
 " title="잃다 아이콘">잃다 아이콘  제작자: Freepik - Flaticon</a>
+<a href="mailto:hyumapr1@gmail.com">메일보내기</a>
           </div>
         </div>
         <div className="text_box">

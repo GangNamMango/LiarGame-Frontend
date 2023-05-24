@@ -1,9 +1,8 @@
 import { combineReducers } from "redux";
-import popup from "../modules/popup";
 import room from "../modules/room";
 
 import  characterpop  from "../modules/character";
-
+import popup from "../modules/popup";
 import { persistReducer } from "redux-persist"; // 추가
 import storage from "redux-persist/lib/storage";
 

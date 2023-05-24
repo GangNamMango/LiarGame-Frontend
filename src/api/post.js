@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_DOMAIN = "http://3.35.178.104";
+const API_DOMAIN = "http://localhost:8080";
 
 export const postMakeRoom = (nickName, getImg) =>
   axios.post(`${API_DOMAIN}/game/room`, {
@@ -16,4 +16,3 @@ export const postEnterRoom = (roomId, nickName, getImg) =>
       character: getImg,
     },
   });
-

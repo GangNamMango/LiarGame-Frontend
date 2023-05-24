@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
-import { exit, result, updateUsers, vote } from "../../modules/room";
 import { useHistory } from "react-router-dom";
 
 const Wrap = styled.div`
@@ -86,7 +85,7 @@ const WaitVote = () => {
         Rooms: state.room,
     }));
     //socket 연결
-    const sock = new SockJs("http://3.35.178.104/socket");
+    const sock = new SockJs("http://localhost:8080/socket");
 
     //stomp 연결
     const stomp = StompJs.over(sock);
@@ -114,25 +113,25 @@ const WaitVote = () => {
         const [current, setCurrent] = useState(0);
         const [max, setMax] = useState(Rooms.data.gameRoom.users.length);
     
-        const history = useHistory();
+        // const history = useHistory();
         
-        useEffect(() => {
-          window.addEventListener('beforeunload', (event) => {
-            event.preventDefault();
+        // useEffect(() => {
+        //   window.addEventListener('beforeunload', (event) => {
+        //     event.preventDefault();
         
-            event.returnValue = sendLeave();
-          })
-            let unlisten = history.listen((location) => {
-              if (history.action === 'PUSH') {
-              }
-              if (history.action === 'POP') {
-              }
-            });
+        //     event.returnValue = sendLeave();
+        //   })
+        //     let unlisten = history.listen((location) => {
+        //       if (history.action === 'PUSH') {
+        //       }
+        //       if (history.action === 'POP') {
+        //       }
+        //     });
         
-            return () => {
-              unlisten();
-            };
-          }, [history]);
+        //     return () => {
+        //       unlisten();
+        //     };
+        //   }, [history]);
         
 
 

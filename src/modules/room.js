@@ -307,14 +307,14 @@ export default function room(state = initialState, action) {
         ...state,
 
         isLoading: false,
-        data: {
-          ...state.data,
-          gameRoom: {
-            ...state.data.gameRoom,
-            users: action.user,
+          data: {
+            ...state.data,
+            gameRoom: {
+              ...state.data.gameRoom,
+              users: action.user,
+            },
           },
-        },
-        error: null,
+          error: null,
       };
     case UPDATEUSERS_ERROR:
       return {

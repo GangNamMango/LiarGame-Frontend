@@ -1,7 +1,6 @@
 const CHARACTERPOP = "rootReducer/CHARACTERPOP";
 
 export const characterpop = () => ({ type: CHARACTERPOP });
-
 const initialState = {
   CharacterPop: false,
 };

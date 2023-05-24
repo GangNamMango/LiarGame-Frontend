@@ -7,13 +7,12 @@ import Navigation from "./Navigation";
 import Setting from "./Setting";
 import Character from "./Character";
 import { useSelector, useDispatch } from "react-redux";
-import { popup } from "../modules/popup";
 import { updateUsers, settingRoom, changeCharacter,startGame, exit, vote, result, countDown } from "../modules/room";
 import { characterpop } from "../modules/character";
 import Change from "./ChageCharacter";
-import Button2 from "./Button2";
 import {CgCrown } from "react-icons/cg";
 import { useHistory } from "react-router-dom";
+import { popup } from "../modules/popup";
 
 
 const Wrap = styled.div`
@@ -111,7 +110,7 @@ height: 120px;
 const WaitingRoomContainer = () => {
 
   const [topic, setTopic] = useState("랜덤");
-  const [timeLimit, setTimeLimit] = useState(60);
+  const [timeLimit, setTimeLimit] = useState(10);
 
   const [character, setCharacter] = useState();
 
@@ -120,7 +119,7 @@ const WaitingRoomContainer = () => {
   }));
 
     //socket 연결
-    const sock = new SockJs("http://3.35.178.104/socket");
+    const sock = new SockJs("http://localhost:8080/socket");
 
     //stomp 연결
     const stomp = StompJs.over(sock);
@@ -199,6 +198,7 @@ const WaitingRoomContainer = () => {
       let data = JSON.parse(body.body); 
       dispatch(result(data.data)); 
   });
+  
     });
   }
 
@@ -380,7 +380,7 @@ const WaitingRoomContainer = () => {
         {PopUp ? (
           <Button value="확인" OnClick={OnClickSetting} />
         ) :CharacterPop ? (
-          <Button2 value="변경" OnClickChangeProfile = {OnClickChangeProfile}/>
+          <Button value="변경" OnClick = {OnClickChangeProfile}/>
 
         ) : (
           <Button value="게임 시작" OnClick={OnClickStartGame}/>
